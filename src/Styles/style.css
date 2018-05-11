@@ -1,0 +1,17 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-nov-2013, 1:45:16
+    Author     : cgti
+*/
+
+.apMain {
+    -fx-background-image: url('../Styles/black-mosaic-tiles-1510.png');
+}
+
+.apMain_notas {
+    -fx-background-image: url('../Styles/subtle-grid-pattern-2408.png');    
+}
