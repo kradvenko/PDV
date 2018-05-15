@@ -28,7 +28,7 @@ public class Conexion {
 
     public ResultSet executeQueryResultSet(String q) {
         String driver = "org.sqlite.JDBC";
-        String url = "jdbc:sqlite:C:\\Hipnotic\\Hipno.db";
+        String url = "jdbc:sqlite:C:\\PDV\\PDV.db";
 	try {
 		Class.forName(driver);
 		connection = DriverManager.getConnection(url);

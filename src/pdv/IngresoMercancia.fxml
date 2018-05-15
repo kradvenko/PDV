@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="800.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.IngresoMercanciaController">
+   <children>
+      <Label layoutX="20.0" layoutY="21.0" text="Clave del producto" />
+      <TextField fx:id="tfClaveProducto" layoutX="135.0" layoutY="17.0" onKeyPressed="#tfClaveProducto_KeyPressed" promptText="Introduce la clave" />
+      <TableView fx:id="tvArticulos" layoutX="21.0" layoutY="61.0" onMouseClicked="#tvEntrega_Click" prefHeight="184.0" prefWidth="774.0">
+        <columns>
+          <TableColumn fx:id="tcCodigo" prefWidth="204.0" text="Clave" />
+          <TableColumn fx:id="tcNombre" prefWidth="559.0" text="Producto" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfCantidadIngresar" layoutX="133.0" layoutY="250.0" onKeyPressed="#tfCantidadIngresar_KeyPressed" promptText="Introduce la cantidad" />
+      <Label layoutX="18.0" layoutY="254.0" text="Cantidad a ingresar" />
+      <TableView fx:id="tvArticulosIngresar" layoutX="14.0" layoutY="283.0" onMouseClicked="#tvEntrega_Click" prefHeight="273.0" prefWidth="650.0">
+         <columns>
+            <TableColumn fx:id="tcIngresarCodigo" prefWidth="154.0" text="Clave" />
+            <TableColumn fx:id="tcIngresarNombre" prefWidth="414.0" text="Producto" />
+            <TableColumn fx:id="tcIngresarCantidad" prefWidth="73.0" text="Cantidad" />
+         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#eliminarArticuloLista" text="Eliminar" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <Label layoutX="511.0" layoutY="263.0" text="Lista de productos a ingresar" />
+      <Button layoutX="678.0" layoutY="514.0" mnemonicParsing="false" onAction="#IngresarMercancia" prefHeight="42.0" prefWidth="103.0" text="Ingresar" />
+      <Label layoutX="674.0" layoutY="283.0" text="Folio de entrega" />
+      <TextField fx:id="tfFolioEntrega" layoutX="674.0" layoutY="308.0" onKeyPressed="#tfCantidadIngresar_KeyPressed" prefHeight="25.0" prefWidth="112.0" promptText="Introduce el folio" />
+      <Label layoutX="304.0" layoutY="21.0" text="Descripción del producto" />
+      <TextField fx:id="tfNombreProducto" layoutX="450.0" layoutY="17.0" onKeyPressed="#tfNombreProducto_KeyPressed" prefHeight="25.0" prefWidth="343.0" promptText="Introduce la descripción" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="80.0" prefWidth="281.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml" fx:controller="hipnotic.DialogNuevaCantidadVentaController">
+  <children>
+    <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="10.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
+    <Label layoutX="25.0" layoutY="6.0" text="Cantidad">
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField id="tfCantidad" alignment="CENTER" layoutX="99.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
+    <Label font="$x1" layoutX="104.0" layoutY="6.0" text="Descuento $" />
+    <TextField id="tfCantidad" alignment="CENTER" layoutX="188.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
+    <Label font="$x1" layoutX="193.0" layoutY="6.0" text="Descuento %" />
+  </children>
+  <stylesheets>
+    <URL value="@../Styles/style.css" />
+  </stylesheets>
+</AnchorPane>

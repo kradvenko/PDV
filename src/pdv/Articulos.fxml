@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="878.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.ArticulosController">
+  <children>
+      <TextField fx:id="tfBusquedaCodigo" layoutX="7.0" layoutY="46.0" onKeyPressed="#tfBusquedaCodigo_KeyPressed" prefWidth="210.0" />
+      <TextField id="tcBusquedaNombre" fx:id="tfBusquedaNombre" layoutX="274.0" layoutY="45.0" onKeyPressed="#tfBusquedaNombre_KeyPressed" prefWidth="257.0" />
+    <TableView fx:id="tvCategorias" layoutX="7.0" layoutY="82.0" onMouseClicked="#tvCategorias_Click" prefHeight="173.0" prefWidth="570.0">
+      <columns>
+        <TableColumn fx:id="tcCategoria" prefWidth="553.0" text="Nombre" />
+      </columns>
+    </TableView>
+    <TableView fx:id="tvArticulos" layoutX="8.0" layoutY="271.0" onMouseClicked="#tvArticulos_Click" prefHeight="263.0" prefWidth="570.0">
+      <columns>
+        <TableColumn fx:id="tcNombre" prefWidth="347.0" text="Nombre" />
+        <TableColumn fx:id="tcCodigo" prefWidth="82.0" text="Código" />
+        <TableColumn fx:id="tcExistencia" prefWidth="60.0" text="Existencia" />
+        <TableColumn fx:id="tcPrecio" prefWidth="76.0" text="Precio" />
+      </columns>
+    </TableView>
+    <Pane fx:id="pDatosArticulo" layoutX="587.0" layoutY="44.0" prefHeight="304.0" prefWidth="276.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label layoutX="27.0" layoutY="14.0" text="Nombre">
+          <font>
+            <Font name="System Bold" size="12.0" fx:id="x1" />
+          </font>
+        </Label>
+        <TextField fx:id="tfNombre" layoutX="27.0" layoutY="39.0" prefWidth="217.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="71.0" text="Código" />
+        <TextField fx:id="tfCodigo" layoutX="27.0" layoutY="96.0" prefWidth="217.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="130.0" text="Existencia" />
+        <TextField fx:id="tfExistencia" layoutX="27.0" layoutY="155.0" prefWidth="56.0" />
+        <Label font="$x1" layoutX="95.0" layoutY="130.0" text="Precio" />
+        <TextField fx:id="tfPrecio" layoutX="95.0" layoutY="155.0" prefWidth="56.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="187.0" text="Categoría" />
+        <ComboBox fx:id="cbCategoria" layoutX="27.0" layoutY="214.0" prefHeight="21.0" prefWidth="217.0" />
+        <Button fx:id="btNuevo" layoutX="83.0" layoutY="256.0" mnemonicParsing="false" onAction="#nuevoArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Nuevo" />
+        <Button fx:id="btActualizar" layoutX="167.0" layoutY="257.0" mnemonicParsing="false" onAction="#actualizarArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Actualizar" />            
+      </children>
+    </Pane>
+    <Pane layoutX="587.0" layoutY="357.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total en la categoría" />
+        <Label fx:id="lblTotalArticulos" layoutX="48.0" layoutY="42.0" text="-">
+          <font>
+            <Font name="System Bold" size="15.0" fx:id="x2" />
+          </font>
+          <textFill>
+            <Color blue="0.529" green="0.600" red="0.000" fx:id="x3" />
+          </textFill>
+        </Label>
+        <Label fx:id="lblTotalEfectivo" font="$x2" layoutX="48.0" layoutY="106.0" text="-">
+          <textFill>
+            <Color blue="0.000" green="0.192" red="0.800" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Label font="$x1" layoutX="14.0" layoutY="26.0" text="Total de artículos" />
+      </children>
+    </Pane>
+    <Pane layoutX="726.0" layoutY="357.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total tienda" />
+        <Label id="lblTotalArticulos" fx:id="lblArticulosTienda" font="$x2" layoutX="48.0" layoutY="42.0" text="-" textFill="$x3" />
+        <Label id="lblTotalEfectivo" fx:id="lblTotalTienda" font="$x2" layoutX="48.0" layoutY="106.0" text="-" textFill="$x4" />
+        <Label font="$x1" layoutX="14.0" layoutY="26.0" text="Artículos en tienda" />
+      </children>
+    </Pane>
+      <Label layoutX="274.0" layoutY="18.0" text="Nombre">
+         <font>
+            <Font name="System Bold" size="12.0" fx:id="x11" />
+         </font>
+      </Label>
+      <Label layoutX="7.0" layoutY="18.0" text="Código">
+         <font>
+            <Font name="System Bold" size="12.0" fx:id="x11" />
+         </font>
+      </Label>
+  </children>
+  <stylesheets>
+    <URL value="@../Styles/style.css" />
+  </stylesheets>
+</AnchorPane>

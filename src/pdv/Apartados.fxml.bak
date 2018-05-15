@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml" fx:controller="hipnotic.ApartadosController">
+  <children>
+    <TableView id="dvApartados" fx:id="tvApartados" layoutX="14.0" layoutY="46.0" onMouseClicked="#tvVentas_Click" prefHeight="440.0" prefWidth="526.0">
+      <columns>
+        <TableColumn prefWidth="150.0" text="Fecha" fx:id="tcApartadoFecha" />
+        <TableColumn prefWidth="150.0" text="Cliente" fx:id="tcApartadoCliente" />
+        <TableColumn prefWidth="100.0" text="Total" fx:id="tcApartadoTotal" />
+        <TableColumn prefWidth="100.0" text="Resta" fx:id="tcApartadoResta" />
+      </columns>
+    </TableView>
+    <Label layoutX="14.0" layoutY="17.0" text="Fecha">
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField id="tfFEcha" fx:id="tfFecha" layoutX="55.0" layoutY="14.0" onKeyPressed="#tfFecha_KeyPressed" prefWidth="132.0" promptText="dd/mm/aaaa" />
+    <Label font="$x1" layoutX="207.0" layoutY="17.0" text="Nombre" />
+    <TextField fx:id="tfNombre" layoutX="261.0" layoutY="14.0" prefWidth="279.0" />
+    <TableView id="dvAbonos" fx:id="tvAbonos" layoutX="558.0" layoutY="46.0" onMouseClicked="#tvAbonos_Click" prefHeight="339.0" prefWidth="228.0">
+      <columns>
+        <TableColumn prefWidth="120.0" text="Fecha" fx:id="tcAbonoFecha" />
+        <TableColumn prefWidth="100.0" text="Abono" fx:id="tcAbonoAbono" />
+      </columns>
+      <contextMenu>
+        <ContextMenu>
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#borrarAbono" text="Borrar abono" />
+          </items>
+        </ContextMenu>
+      </contextMenu>
+    </TableView>
+    <Label font="$x1" layoutX="558.0" layoutY="397.0" text="Nuevo abono" />
+    <TextField fx:id="tfAbono" layoutX="558.0" layoutY="422.0" prefWidth="118.0" text="0" />
+    <Button layoutX="558.0" layoutY="451.0" mnemonicParsing="false" onAction="#abonar_efectivo" prefHeight="35.0" prefWidth="91.0" text="Efectivo" />
+    <Button layoutX="695.0" layoutY="451.0" mnemonicParsing="false" onAction="#abonar_tarjeta" prefHeight="35.0" prefWidth="91.0" text="Tarjeta" />
+  </children>
+  <stylesheets>
+    <URL value="@../Styles/style.css" />
+  </stylesheets>
+</AnchorPane>

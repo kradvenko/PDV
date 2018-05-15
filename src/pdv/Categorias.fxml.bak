@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="hipnotic.CategoriasController">
+  <children>
+    <TableView fx:id="tvCategorias" layoutX="14.0" layoutY="14.0" onMouseClicked="#tvCategorias_Click" prefHeight="372.0" prefWidth="155.0">
+      <columns>
+        <TableColumn prefWidth="150.0" text="Nombre" fx:id="tcNombre" />
+      </columns>
+    </TableView>
+    <Pane layoutX="183.0" layoutY="14.0" prefHeight="144.0" prefWidth="203.0" style="-fx-border-color: #000000;">
+      <children>
+        <Button layoutX="119.0" layoutY="82.0" mnemonicParsing="false" onAction="#nuevaCategoria" prefHeight="35.0" prefWidth="70.0" text="Guardar" />
+        <Label layoutX="14.0" layoutY="14.0" text="Nueva categoría">
+          <font>
+            <Font name="System Bold" size="12.0" fx:id="x1" />
+          </font>
+        </Label>
+        <TextField id="tfCategoria" fx:id="tfCategoriaNueva" layoutX="14.0" layoutY="43.0" prefWidth="175.0" />
+      </children>
+    </Pane>
+    <Pane layoutX="183.0" layoutY="171.0" prefHeight="144.0" prefWidth="203.0" style="-fx-border-color: #000000;">
+      <children>
+        <Button layoutX="119.0" layoutY="82.0" mnemonicParsing="false" onAction="#actualizarCategoria" prefHeight="35.0" prefWidth="70.0" text="Guardar" />
+        <Label font="$x1" layoutX="14.0" layoutY="14.0" text="Actualizar categoría" />
+        <TextField id="tfCategoria" fx:id="tfCategoriaActualizar" layoutX="14.0" layoutY="43.0" prefWidth="175.0" />
+      </children>
+    </Pane>
+  </children>
+</AnchorPane>

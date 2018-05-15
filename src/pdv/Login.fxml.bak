@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="hipnotic.LoginController">
+  <padding>
+    <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+  </padding>
+  <Text text="Bienvenido" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+  <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+  <TextField id="usuario" fx:id="tfUsuario" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+  <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+  <PasswordField id="contrasena" fx:id="tfContrasena" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+  <HBox alignment="BOTTOM_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <Button onAction="#handleButtonAction" text="Ingresar" />
+  </HBox>
+  <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+</GridPane>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="pdv.CorteController">
+  <children>
+    <Label layoutX="14.0" layoutY="14.0" text="Fecha">
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField id="tfFEcha" fx:id="tfFechaInicio" layoutX="55.0" layoutY="11.0" onKeyPressed="#tfFechaInicio_KeyPressed" prefWidth="132.0" promptText="dd/mm/aaaa" />
+    <TableView id="tvVenta" fx:id="tvVentaDetalle" layoutX="14.0" layoutY="293.0" prefHeight="193.0" prefWidth="383.0">
+      <columns>
+        <TableColumn fx:id="tcDetalleNombre" prefWidth="75.0" text="Nombre" />
+        <TableColumn fx:id="tcDetalleCodigo" prefWidth="75.0" text="Codigo" />
+        <TableColumn fx:id="tcDetallePrecio" prefWidth="75.0" text="Precio" />
+        <TableColumn fx:id="tcDetalleCantidad" prefWidth="75.0" text="Cantidad" />
+        <TableColumn fx:id="tcDetalleImporte" prefWidth="75.0" text="Importe" />
+      </columns>
+    </TableView>
+    <Pane layoutX="410.0" layoutY="294.0" prefHeight="193.0" prefWidth="369.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label font="$x1" layoutX="14.0" layoutY="11.0" text="Total venta efectivo" />
+        <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total venta tarjeta" />
+        <Label fx:id="lblVentaEfectivo" layoutX="28.0" layoutY="30.0" text="\$">
+          <font>
+            <Font name="System Bold" size="20.0" fx:id="x2" />
+          </font>
+          <textFill>
+            <Color blue="0.322" green="0.800" red="0.000" fx:id="x3" />
+          </textFill>
+        </Label>
+        <Label id="lblVentaEfectivo" fx:id="lblVentaTarjeta" font="$x2" layoutX="29.0" layoutY="96.0" text="\$">
+          <textFill>
+            <Color blue="1.000" green="0.400" red="0.000" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Label font="$x1" layoutX="16.0" layoutY="139.0" text="Total venta" />
+        <Label id="lblVentaEfectivo" fx:id="lblVentaTotal" font="$x2" layoutX="29.0" layoutY="156.0" text="\$" textFill="RED" />
+        <Label font="$x1" layoutX="198.0" layoutY="11.0" text="Total abonos efectivo" />
+        <Label font="$x1" layoutX="198.0" layoutY="75.0" text="Total abonos tarjeta" />
+        <Label id="lblVentaEfectivo" fx:id="lblAbonoEfectivo" font="$x2" layoutX="209.0" layoutY="30.0" text="\$" textFill="$x3" />
+        <Label id="lblVentaEfectivo" fx:id="lblAbonoTarjeta" font="$x2" layoutX="208.0" layoutY="97.0" text="\$" textFill="$x4" />
+      </children>
+    </Pane>
+    <Button layoutX="666.0" layoutY="6.0" mnemonicParsing="false" onAction="#imprimirCorte" prefHeight="26.6015625" prefWidth="113.0" text="Imprimir corte" />
+    <TabPane layoutX="14.0" layoutY="44.0" prefHeight="239.0" prefWidth="765.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Ventas">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TableView fx:id="tvVentas" layoutX="14.0" layoutY="14.0" onMouseClicked="#tvVentas_Click" prefHeight="180.0" prefWidth="737.0">
+                  <columns>
+                    <TableColumn fx:id="tcVentaNumero" prefWidth="75.0" text="Número" />
+                    <TableColumn fx:id="tcVentaFecha" prefWidth="75.0" text="Fecha" />
+                    <TableColumn fx:id="tcVentaTipo" prefWidth="75.0" text="Tipo" />
+                    <TableColumn fx:id="tcVentaSubtotal" prefWidth="75.0" text="Subtotal" />
+                    <TableColumn fx:id="tcVentaDescuentoEfectivo" prefWidth="90.0" text="Descuento ($)" />
+                    <TableColumn fx:id="tcVentaDescuentoPorcentaje" prefWidth="90.0" text="Descuento (%)" />
+                    <TableColumn fx:id="tcVentaTotal" prefWidth="75.0" text="Total" />
+                    <TableColumn fx:id="tcEstado" prefWidth="75.0" text="Estado" />
+                    <TableColumn fx:id="tcVendedor" prefWidth="75.0" text="Vendedor" />
+                  </columns>
+                  <contextMenu>
+                    <ContextMenu>
+                      <items>
+                        <MenuItem mnemonicParsing="false" onAction="#imprimir" text="Imprimir" />
+                        <MenuItem mnemonicParsing="false" onAction="#cancelarVenta" text="Cancelar" />
+                        <MenuItem mnemonicParsing="false" onAction="#activarVenta" text="Activar" />
+                      </items>
+                    </ContextMenu>
+                  </contextMenu>
+                </TableView>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Abonos">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TableView fx:id="tvAbonos" layoutX="14.0" layoutY="14.0" prefHeight="180.0" prefWidth="737.0">
+                  <columns>
+                    <TableColumn fx:id="tcAbonoFecha" prefWidth="150.0" text="Fecha" />
+                    <TableColumn fx:id="tcAbonoAbono" prefWidth="150.0" text="Abono" />
+                    <TableColumn fx:id="tcAbonoTipo" prefWidth="150.0" text="Tipo de pago" />
+                  </columns>
+                </TableView>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+      <Button layoutX="538.0" layoutY="6.0" mnemonicParsing="false" onAction="#enviarVentas" prefHeight="26.6015625" prefWidth="113.0" text="Enviar ventas" />
+  </children>
+  <stylesheets>
+    <URL value="@../Styles/style.css" />
+  </stylesheets>
+</AnchorPane>

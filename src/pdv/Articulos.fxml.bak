@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml" fx:controller="hipnotic.ArticulosController">
+  <children>
+    <TableView fx:id="tvCategorias" layoutX="7.0" layoutY="14.0" onMouseClicked="#tvCategorias_Click" prefHeight="472.0" prefWidth="155.0">
+      <columns>
+        <TableColumn prefWidth="150.0" text="Nombre" fx:id="tcCategoria" />
+      </columns>
+    </TableView>
+    <TableView fx:id="tvArticulos" layoutX="174.0" layoutY="14.0" onMouseClicked="#tvArticulos_Click" prefHeight="472.0" prefWidth="336.0">
+      <columns>
+        <TableColumn prefWidth="100.0" text="Nombre" fx:id="tcNombre" />
+        <TableColumn text="Código" fx:id="tcCodigo" />
+        <TableColumn prefWidth="75.0" text="Existencia" fx:id="tcExistencia" />
+        <TableColumn prefWidth="75.0" text="Precio" fx:id="tcPrecio" />
+      </columns>
+    </TableView>
+    <Pane layoutX="517.0" layoutY="14.0" prefHeight="315.0" prefWidth="276.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label layoutX="27.0" layoutY="14.0" text="Nombre">
+          <font>
+            <Font name="System Bold" size="12.0" fx:id="x1" />
+          </font>
+        </Label>
+        <TextField fx:id="tfNombre" layoutX="27.0" layoutY="39.0" prefWidth="217.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="71.0" text="Código" />
+        <TextField fx:id="tfCodigo" layoutX="27.0" layoutY="96.0" prefWidth="217.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="130.0" text="Existencia" />
+        <TextField fx:id="tfExistencia" layoutX="27.0" layoutY="155.0" prefWidth="56.0" />
+        <Label font="$x1" layoutX="95.0" layoutY="130.0" text="Precio" />
+        <TextField fx:id="tfPrecio" layoutX="95.0" layoutY="155.0" prefWidth="56.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="187.0" text="Categoría" />
+        <ComboBox fx:id="cbCategoria" layoutX="27.0" layoutY="214.0" prefHeight="21.0" prefWidth="217.0" />
+        <Button fx:id="btNuevo" layoutX="86.0" layoutY="261.0" mnemonicParsing="false" onAction="#nuevoArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Nuevo" />
+        <Button fx:id="btActualizar" layoutX="170.0" layoutY="261.0" mnemonicParsing="false" onAction="#actualizarArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Actualizar" />
+      </children>
+    </Pane>
+    <Pane layoutX="517.0" layoutY="337.0" prefHeight="149.0" prefWidth="137.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total en la categoría" />
+        <Label fx:id="lblTotalArticulos" layoutX="48.0" layoutY="42.0" text="-">
+          <font>
+            <Font name="System Bold" size="15.0" fx:id="x2" />
+          </font>
+          <textFill>
+            <Color blue="0.529" green="0.600" red="0.000" fx:id="x3" />
+          </textFill>
+        </Label>
+        <Label fx:id="lblTotalEfectivo" font="$x2" layoutX="48.0" layoutY="106.0" text="-">
+          <textFill>
+            <Color blue="0.000" green="0.192" red="0.800" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Label font="$x1" layoutX="14.0" layoutY="26.0" text="Total de artículos" />
+      </children>
+    </Pane>
+    <Pane layoutX="656.0" layoutY="337.0" prefHeight="149.0" prefWidth="137.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total tienda" />
+        <Label id="lblTotalArticulos" font="$x2" layoutX="48.0" layoutY="42.0" text="-" textFill="$x3" />
+        <Label id="lblTotalEfectivo" font="$x2" layoutX="48.0" layoutY="106.0" text="-" textFill="$x4" />
+        <Label font="$x1" layoutX="14.0" layoutY="26.0" text="Artículos en tienda" />
+      </children>
+    </Pane>
+  </children>
+  <stylesheets>
+    <URL value="@../Styles/style.css" />
+  </stylesheets>
+</AnchorPane>

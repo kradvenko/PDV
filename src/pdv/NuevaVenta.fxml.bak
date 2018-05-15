@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml" fx:controller="hipnotic.NuevaVentaController">
+  <children>
+    <TabPane fx:id="tpMain" layoutX="14.0" layoutY="14.0" prefHeight="109.0" prefWidth="772.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Búsqueda por código y descripción">
+          <content>
+            <AnchorPane id="Content" focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="59.0" prefWidth="772.0" styleClass="apMain_notas">
+              <children>
+                <Label layoutX="281.0" layoutY="9.0" text="Nombre">
+                  <font>
+                    <Font name="System Bold" size="12.0" fx:id="x1" />
+                  </font>
+                </Label>
+                <Label font="$x1" layoutX="596.0" layoutY="12.0" text="Vendedor" />
+                <TextField fx:id="tfVendedor" layoutX="596.0" layoutY="36.0" prefWidth="162.0" />
+                <TextField id="tcBusquedaNombre" fx:id="tfBusquedaNombre" layoutX="281.0" layoutY="36.0" onKeyPressed="#tfBusquedaNombre_KeyPressed" prefWidth="257.0" />
+                <TextField fx:id="tfBusquedaCodigo" layoutX="14.0" layoutY="37.0" onKeyPressed="#tfBusquedaCodigo_KeyPressed" prefWidth="210.0" />
+                <Label font="$x1" layoutX="14.0" layoutY="9.0" text="Código" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <TableView fx:id="tvVenta" layoutX="292.0" layoutY="134.0" onMouseClicked="#tvVenta_Click" prefHeight="350.0" prefWidth="383.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="Nombre" fx:id="tcVentaNombre" />
+        <TableColumn prefWidth="75.0" text="Codigo" fx:id="tcVentaCodigo" />
+        <TableColumn prefWidth="75.0" text="Precio" fx:id="tcVentaPrecio" />
+        <TableColumn prefWidth="75.0" text="Cantidad" fx:id="tcVentaCantidad" />
+        <TableColumn prefWidth="75.0" text="Importe" fx:id="tcVentaImporte" />
+        <TableColumn prefWidth="75.0" text="Desc. $" fx:id="tcVentaDescuentoArticuloEfectivo" />
+        <TableColumn prefWidth="75.0" text="Desc. %" fx:id="tcVentaDescuentoArticuloPorcentaje" />
+      </columns>
+      <contextMenu>
+        <ContextMenu>
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#eliminarArticuloVenta" text="Eliminar" />
+          </items>
+        </ContextMenu>
+      </contextMenu>
+    </TableView>
+    <TableView fx:id="tvArticulos" layoutX="14.0" layoutY="136.0" onMouseClicked="#tvArticulos_Click" prefHeight="350.0" prefWidth="267.0">
+      <columns>
+        <TableColumn prefWidth="100.0" text="Nombre" fx:id="tcNombre" />
+        <TableColumn text="Código" fx:id="tcCodigo" />
+        <TableColumn prefWidth="75.0" text="Precio" fx:id="tcPrecio" />
+      </columns>
+    </TableView>
+    <Pane layoutX="687.0" layoutY="136.0" prefHeight="350.0" prefWidth="99.0" style="-fx-border-color: #000000;">
+      <children>
+        <Label font="$x1" layoutX="11.0" layoutY="11.0" text="Subtotal" />
+        <Label id="lblSubTotal" fx:id="lblSubTotalVenta" layoutX="12.0" layoutY="27.0" text="\$ 0" textFill="#00cc52">
+          <font>
+            <Font name="System Bold" size="20.0" fx:id="x2" />
+          </font>
+        </Label>
+        <Label font="$x1" layoutX="12.0" layoutY="54.0" text="Descuento ($)" />
+        <TextField id="tcBusquedaNombre" fx:id="tfDescuentoEfectivo" layoutX="11.0" layoutY="76.0" onKeyPressed="#tfDescuentoEfectivo_KeyPressed" prefWidth="79.0" text="0" />
+        <Label font="$x1" layoutX="12.0" layoutY="104.0" text="Descuento (%)" />
+        <TextField id="tcBusquedaNombre" fx:id="tfDescuentoPorcentaje" layoutX="11.0" layoutY="126.0" onKeyPressed="#tfDescuentoEfectivo_KeyPressed" prefWidth="79.0" text="0" />
+        <Label font="$x1" layoutX="12.0" layoutY="157.0" text="Total" />
+        <Label id="lblSubTotal" fx:id="lblTotalVenta" font="$x2" layoutX="13.0" layoutY="173.0" text="\$ 0" textFill="RED" />
+        <Button layoutX="11.0" layoutY="200.0" mnemonicParsing="false" onAction="#guardarVentaEfectivo" prefHeight="36.9609375" prefWidth="74.0" text="Efectivo" />
+        <Button layoutX="11.0" layoutY="243.0" mnemonicParsing="false" onAction="#guardarVentaTarjeta" prefHeight="36.9609375" prefWidth="74.0" text="Tarjeta" />
+        <CheckBox fx:id="cbImprimir" layoutX="14.0" layoutY="328.0" mnemonicParsing="false" selected="true" text="Imprimir" />
+        <Button layoutX="11.0" layoutY="287.0" mnemonicParsing="false" onAction="#guardarVentaTarjeta" prefHeight="36.9609375" prefWidth="74.0" text="Apartado" />
+      </children>
+    </Pane>
+  </children>
+  <stylesheets>
+    <URL value="@../Styles/style.css" />
+  </stylesheets>
+</AnchorPane>
