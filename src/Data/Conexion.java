@@ -35,7 +35,7 @@ public class Conexion {
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(q);
                 return rs;
-        }catch(ClassNotFoundException cnfe) {            
+        }catch(ClassNotFoundException cnfe) {
             return null;
 	}catch(SQLException sqle) {
             //JOptionPane.showMessageDialog(null, sqle.getMessage());
@@ -45,7 +45,7 @@ public class Conexion {
     
     public String executeQueryString(String q) {
         String driver = "org.sqlite.JDBC";
-        String url = "jdbc:sqlite:C:\\Hipnotic\\Hipno.db";
+        String url = "jdbc:sqlite:C:\\PDV\\PDV.db";
 	try {
 		Class.forName(driver);
 		connection = DriverManager.getConnection(url);
@@ -59,7 +59,7 @@ public class Conexion {
     
     public int executeQueryLastID(String q) {
         String driver = "org.sqlite.JDBC";
-        String url = "jdbc:sqlite:C:\\Hipnotic\\Hipno.db";
+        String url = "jdbc:sqlite:C:\\PDV\\PDV.db";
 	try {
 		Class.forName(driver);
 		connection = DriverManager.getConnection(url);

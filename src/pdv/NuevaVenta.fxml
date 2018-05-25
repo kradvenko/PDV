@@ -15,13 +15,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.NuevaVentaController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="800.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.NuevaVentaController">
   <children>
-    <TabPane fx:id="tpMain" layoutX="14.0" layoutY="14.0" prefHeight="109.0" prefWidth="772.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane fx:id="tpMain" layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="772.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab text="Búsqueda por código y descripción">
           <content>
-            <AnchorPane id="Content" focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="59.0" prefWidth="772.0" styleClass="apMain_notas">
+            <AnchorPane id="Content" focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="772.0" styleClass="apMain_notas">
               <children>
                 <Label layoutX="281.0" layoutY="9.0" text="Nombre">
                   <font>
@@ -39,7 +39,7 @@
         </Tab>
       </tabs>
     </TabPane>
-    <TableView fx:id="tvVenta" layoutX="12.0" layoutY="325.0" onMouseClicked="#tvVenta_Click" prefHeight="159.0" prefWidth="663.0">
+    <TableView fx:id="tvVenta" layoutX="13.0" layoutY="392.0" onMouseClicked="#tvVenta_Click" prefHeight="159.0" prefWidth="663.0">
       <columns>
         <TableColumn fx:id="tcVentaNombre" prefWidth="224.0" text="Nombre" />
         <TableColumn fx:id="tcVentaCodigo" prefWidth="58.0" text="Codigo" />
@@ -57,14 +57,14 @@
         </ContextMenu>
       </contextMenu>
     </TableView>
-    <TableView fx:id="tvArticulos" layoutX="14.0" layoutY="136.0" onMouseClicked="#tvArticulos_Click" prefHeight="185.0" prefWidth="663.0">
+    <TableView fx:id="tvArticulos" layoutX="15.0" layoutY="203.0" onMouseClicked="#tvArticulos_Click" prefHeight="185.0" prefWidth="663.0">
       <columns>
         <TableColumn fx:id="tcNombre" prefWidth="441.0" text="Nombre" />
         <TableColumn fx:id="tcCodigo" minWidth="8.0" prefWidth="113.0" text="Código" />
         <TableColumn fx:id="tcPrecio" prefWidth="103.0" text="Precio" />
       </columns>
     </TableView>
-    <Pane layoutX="687.0" layoutY="136.0" prefHeight="350.0" prefWidth="99.0" style="-fx-border-color: #000000;">
+    <Pane layoutX="688.0" layoutY="203.0" prefHeight="350.0" prefWidth="99.0" style="-fx-border-color: #000000;">
       <children>
         <Label font="$x1" layoutX="11.0" layoutY="11.0" text="Subtotal" />
         <Label id="lblSubTotal" fx:id="lblSubTotalVenta" layoutX="12.0" layoutY="27.0" text="\$ 0" textFill="#00cc52">
