@@ -66,7 +66,7 @@ public class Reporte {
     public void crearTicket() {
             FontBuilder boldFont = stl.fontArialBold().setFontSize(12);
             FontBuilder boldFontV2 = stl.fontArialBold().setFontSize(9);
-            FontBuilder regularFont = stl.fontArial().setFontSize(7);
+            FontBuilder regularFont = stl.fontArial().setFontSize(7);            
             
             StyleBuilder boldStyle = stl.style().setFont(boldFont);
             StyleBuilder boldStyle2 = stl.style().setFont(boldFontV2);
@@ -150,7 +150,7 @@ public class Reporte {
     public void crearCorte() {
             FontBuilder boldFont = stl.fontArialBold().setFontSize(12);
             FontBuilder boldFontV2 = stl.fontArialBold().setFontSize(9);
-            FontBuilder regularFont = stl.fontArial().setFontSize(7);
+            FontBuilder regularFont = stl.fontArial().setFontSize(7);            
             
             StyleBuilder boldStyle = stl.style().setFont(boldFont);
             StyleBuilder boldStyle2 = stl.style().setFont(boldFontV2);

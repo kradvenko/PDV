@@ -27,7 +27,7 @@ public class Articulo {
     private Float precio;
     private String codigo;
     //Variables para la venta
-    private int cantidadVenta;
+    private Float cantidadVenta;
     private Float totalVenta;
     private Float descuentoArticuloEfectivo;
     private Float descuentoArticuloPorcentaje;
@@ -107,11 +107,11 @@ public class Articulo {
         return this.categoria;
     }
     
-    public void setCantidadVenta(int cantidadVenta) {
+    public void setCantidadVenta(Float cantidadVenta) {
         this.cantidadVenta = cantidadVenta;
     }
     
-    public int getCantidadVenta() {
+    public Float getCantidadVenta() {
         return this.cantidadVenta;
     }
     
@@ -221,7 +221,7 @@ public class Articulo {
         }
     }
     
-    public static void actualizarExistenciaArticulo(int idArticulo, int cantidad) {
+    public static void actualizarExistenciaArticulo(int idArticulo, float cantidad) {
         try {
             Conexion con = new Conexion();
             String query = "UPDATE articulos SET existencia = existencia - " + cantidad + " WHERE id_articulo = " + idArticulo;

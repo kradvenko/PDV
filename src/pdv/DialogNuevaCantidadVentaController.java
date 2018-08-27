@@ -29,6 +29,7 @@ public class DialogNuevaCantidadVentaController implements Initializable {
     @FXML TextField tfCantidad;
     @FXML TextField tfDescuentoEfectivo;
     @FXML TextField tfDescuentoPorcentaje;
+    @FXML TextField tfImporte;
     
     private NuevaVentaController parent;
     private int index;
@@ -42,20 +43,22 @@ public class DialogNuevaCantidadVentaController implements Initializable {
         this.parent = parent;
     }
     
-    public void setCantidad(int cantidad, float descuentoEfectivo, float descuentoPorcentaje, int index) {
+    public void setCantidad(float cantidad, float descuentoEfectivo, float descuentoPorcentaje, float importe, int index) {
         tfCantidad.setText(String.valueOf(cantidad));
         tfDescuentoEfectivo.setText(String.valueOf(descuentoEfectivo));
         tfDescuentoPorcentaje.setText(String.valueOf(descuentoPorcentaje));
+        tfImporte.setText(String.valueOf(importe));
         this.index = index;
     }
     
     public void tfCantidad_KeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             try {
-                int cantidad = Integer.parseInt(tfCantidad.getText());
+                float cantidad = Float.parseFloat(tfCantidad.getText());
                 float descuentoEfectivo = Float.parseFloat(tfDescuentoEfectivo.getText());
                 float descuentoPorcentaje = Float.parseFloat(tfDescuentoPorcentaje.getText());
-                parent.setCantidadArticuloVenta(cantidad, descuentoEfectivo, descuentoPorcentaje, index);
+                float importe = Float.parseFloat(tfImporte.getText());
+                parent.setCantidadArticuloVenta(cantidad, descuentoEfectivo, descuentoPorcentaje, importe, index);
                 Stage stage = (Stage) tfCantidad.getScene().getWindow();
                 stage.close();
             } catch (NumberFormatException exc) {

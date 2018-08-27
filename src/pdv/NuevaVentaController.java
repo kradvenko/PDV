@@ -168,7 +168,7 @@ public class NuevaVentaController implements Initializable {
                     Parent root = (Parent)loader.load();
                     DialogNuevaCantidadVentaController controller = loader.<DialogNuevaCantidadVentaController>getController();
                     controller.setParent(this);
-                    controller.setCantidad(articuloVentaActual.getCantidadVenta(), articuloVentaActual.getDescuentoArticuloEfectivo(), articuloVentaActual.getDescuentoArticuloPorcentaje(), index);
+                    controller.setCantidad(articuloVentaActual.getCantidadVenta(), articuloVentaActual.getDescuentoArticuloEfectivo(), articuloVentaActual.getDescuentoArticuloPorcentaje(), articuloVentaActual.getTotalVenta(), index);
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.showAndWait();
@@ -202,7 +202,7 @@ public class NuevaVentaController implements Initializable {
                     return;
                 }
             }*/
-            a.setCantidadVenta(1);
+            a.setCantidadVenta(1f);
             a.setTotalVenta(1f * a.getPrecio());
             a.setDescuentoArticuloEfectivo(0f);
             a.setDescuentoArticuloPorcentaje(0f);
@@ -218,11 +218,12 @@ public class NuevaVentaController implements Initializable {
         }
     }
     
-    public void setCantidadArticuloVenta(int cantidad, float descuentoEfectivo, float descuentoPorcentaje, int index) {
+    public void setCantidadArticuloVenta(float cantidad, float descuentoEfectivo, float descuentoPorcentaje, float importe, int index) {
         articuloVentaActual.setCantidadVenta(cantidad);
         articuloVentaActual.setDescuentoArticuloEfectivo(descuentoEfectivo);
         articuloVentaActual.setDescuentoArticuloPorcentaje(descuentoPorcentaje);
-        articuloVentaActual.setTotalVenta(articuloVentaActual.getCantidadVenta() * articuloVentaActual.getPrecio() * (1 - articuloVentaActual.getDescuentoArticuloPorcentaje() / 100) - articuloVentaActual.getDescuentoArticuloEfectivo());
+        //articuloVentaActual.setTotalVenta(articuloVentaActual.getCantidadVenta() * articuloVentaActual.getPrecio() * (1 - articuloVentaActual.getDescuentoArticuloPorcentaje() / 100) - articuloVentaActual.getDescuentoArticuloEfectivo());
+        articuloVentaActual.setTotalVenta(importe);
         /*detalleVenta.get(index).setCantidadVenta(cantidad);
         detalleVenta.get(index).setDescuentoArticuloEfectivo(descuentoEfectivo);
         detalleVenta.get(index).setDescuentoArticuloPorcentaje(descuentoPorcentaje);

@@ -177,7 +177,7 @@ public class Venta {
                         detalleVenta.clear();
                         while (detalle.next()) {
                             Articulo a = new Articulo();
-                            a.setCantidadVenta(detalle.getInt("cantidad"));
+                            a.setCantidadVenta(detalle.getFloat("cantidad"));
                             a.setCodigo(detalle.getString("codigo"));
                             a.setIdArticulo(detalle.getInt("id_articulo"));
                             a.setNombre(detalle.getString("nombre"));

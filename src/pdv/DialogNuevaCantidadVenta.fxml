@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="80.0" prefWidth="281.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml" fx:controller="pdv.DialogNuevaCantidadVentaController">
+<AnchorPane id="AnchorPane" prefHeight="80.0" prefWidth="377.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="pdv.DialogNuevaCantidadVentaController">
   <children>
     <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="10.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
     <Label layoutX="25.0" layoutY="6.0" text="Cantidad">
@@ -20,6 +18,12 @@
     <Label font="$x1" layoutX="104.0" layoutY="6.0" text="Descuento $" />
     <TextField id="tfCantidad" fx:id="tfDescuentoPorcentaje" alignment="CENTER" layoutX="188.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
     <Label font="$x1" layoutX="193.0" layoutY="6.0" text="Descuento %" />
+      <TextField fx:id="tfImporte" alignment="CENTER" layoutX="276.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
+      <Label layoutX="291.0" layoutY="6.0" text="Importe">
+         <font>
+            <Font name="System Bold" size="12.0" fx:id="x11" />
+         </font>
+      </Label>
   </children>
   <stylesheets>
     <URL value="@../Styles/style.css" />
