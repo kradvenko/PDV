@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="80.0" prefWidth="377.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="pdv.DialogNuevaCantidadVentaController">
+<AnchorPane id="AnchorPane" prefHeight="80.0" prefWidth="378.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.DialogNuevaCantidadVentaController">
   <children>
-    <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="10.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
     <Label layoutX="25.0" layoutY="6.0" text="Cantidad">
       <font>
         <Font name="System Bold" size="12.0" fx:id="x1" />
       </font>
     </Label>
-    <TextField id="tfCantidad" fx:id="tfDescuentoEfectivo" alignment="CENTER" layoutX="99.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
-    <Label font="$x1" layoutX="104.0" layoutY="6.0" text="Descuento $" />
-    <TextField id="tfCantidad" fx:id="tfDescuentoPorcentaje" alignment="CENTER" layoutX="188.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
-    <Label font="$x1" layoutX="193.0" layoutY="6.0" text="Descuento %" />
-      <TextField fx:id="tfImporte" alignment="CENTER" layoutX="276.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
-      <Label layoutX="291.0" layoutY="6.0" text="Importe">
+    <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="10.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
+      <Label layoutX="117.0" layoutY="5.0" text="Importe">
          <font>
             <Font name="System Bold" size="12.0" fx:id="x11" />
          </font>
       </Label>
+      <TextField fx:id="tfImporte" alignment="CENTER" layoutX="100.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
+    <Label font="$x1" layoutX="203.0" layoutY="5.0" text="Descuento $" />
+    <TextField id="tfCantidad" fx:id="tfDescuentoEfectivo" alignment="CENTER" layoutX="198.0" layoutY="28.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
+    <Label font="$x1" layoutX="292.0" layoutY="5.0" text="Descuento %" />
+    <TextField id="tfCantidad" fx:id="tfDescuentoPorcentaje" alignment="CENTER" layoutX="287.0" layoutY="28.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="79.9998779296875" />
   </children>
   <stylesheets>
     <URL value="@../Styles/style.css" />

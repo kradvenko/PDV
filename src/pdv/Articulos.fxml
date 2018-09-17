@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="878.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.ArticulosController">
+<AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="873.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.ArticulosController">
   <children>
       <TextField fx:id="tfBusquedaCodigo" layoutX="7.0" layoutY="46.0" onKeyPressed="#tfBusquedaCodigo_KeyPressed" prefWidth="210.0" />
       <TextField id="tcBusquedaNombre" fx:id="tfBusquedaNombre" layoutX="274.0" layoutY="45.0" onKeyPressed="#tfBusquedaNombre_KeyPressed" prefWidth="257.0" />
@@ -21,7 +21,7 @@
         <TableColumn fx:id="tcCategoria" prefWidth="553.0" text="Nombre" />
       </columns>
     </TableView>
-    <TableView fx:id="tvArticulos" layoutX="8.0" layoutY="271.0" onMouseClicked="#tvArticulos_Click" prefHeight="263.0" prefWidth="570.0">
+    <TableView fx:id="tvArticulos" layoutX="8.0" layoutY="271.0" onMouseClicked="#tvArticulos_Click" prefHeight="321.0" prefWidth="570.0">
       <columns>
         <TableColumn fx:id="tcNombre" prefWidth="347.0" text="Nombre" />
         <TableColumn fx:id="tcCodigo" prefWidth="82.0" text="Código" />
@@ -29,27 +29,41 @@
         <TableColumn fx:id="tcPrecio" prefWidth="76.0" text="Precio" />
       </columns>
     </TableView>
-    <Pane fx:id="pDatosArticulo" layoutX="587.0" layoutY="44.0" prefHeight="304.0" prefWidth="276.0" style="-fx-border-color: #000000;">
+    <Pane fx:id="pDatosArticulo" layoutX="587.0" layoutY="6.0" prefHeight="421.0" prefWidth="276.0" style="-fx-border-color: #000000;">
       <children>
         <Label layoutX="27.0" layoutY="14.0" text="Nombre">
           <font>
             <Font name="System Bold" size="12.0" fx:id="x1" />
           </font>
         </Label>
-        <TextField fx:id="tfNombre" layoutX="27.0" layoutY="39.0" prefWidth="217.0" />
+        <TextField fx:id="tfNombre" disable="true" layoutX="27.0" layoutY="39.0" prefWidth="217.0" />
         <Label font="$x1" layoutX="27.0" layoutY="71.0" text="Código" />
-        <TextField fx:id="tfCodigo" layoutX="27.0" layoutY="96.0" prefWidth="217.0" />
+        <TextField fx:id="tfCodigo" disable="true" layoutX="27.0" layoutY="96.0" prefWidth="217.0" />
         <Label font="$x1" layoutX="27.0" layoutY="130.0" text="Existencia" />
-        <TextField fx:id="tfExistencia" layoutX="27.0" layoutY="155.0" prefWidth="56.0" />
+        <TextField fx:id="tfExistencia" disable="true" layoutX="27.0" layoutY="155.0" prefWidth="56.0" />
         <Label font="$x1" layoutX="95.0" layoutY="130.0" text="Precio" />
-        <TextField fx:id="tfPrecio" layoutX="95.0" layoutY="155.0" prefWidth="56.0" />
-        <Label font="$x1" layoutX="27.0" layoutY="187.0" text="Categoría" />
-        <ComboBox fx:id="cbCategoria" layoutX="27.0" layoutY="214.0" prefHeight="21.0" prefWidth="217.0" />
-        <Button fx:id="btNuevo" layoutX="83.0" layoutY="256.0" mnemonicParsing="false" onAction="#nuevoArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Nuevo" />
-        <Button fx:id="btActualizar" layoutX="167.0" layoutY="257.0" mnemonicParsing="false" onAction="#actualizarArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Actualizar" />            
+        <TextField fx:id="tfPrecio" disable="true" layoutX="95.0" layoutY="155.0" prefWidth="56.0" />
+            <Label layoutX="163.0" layoutY="132.0" text="Costo">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x11" />
+               </font>
+            </Label>
+            <TextField fx:id="tfCosto" disable="true" layoutX="163.0" layoutY="155.0" prefWidth="56.0" />
+        <Label font="$x1" layoutX="30.0" layoutY="190.0" text="Unidad" />
+            <ComboBox fx:id="cbUnidad" layoutX="27.0" layoutY="215.0" prefHeight="25.0" prefWidth="217.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="240.0" text="Categoría" />
+        <ComboBox fx:id="cbCategoria" layoutX="27.0" layoutY="267.0" prefHeight="21.0" prefWidth="217.0" />            
+        <Button fx:id="btNuevo" layoutX="86.0" layoutY="371.0" mnemonicParsing="false" onAction="#nuevoArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Nuevo" />
+        <Button fx:id="btActualizar" layoutX="170.0" layoutY="371.0" mnemonicParsing="false" onAction="#actualizarArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Actualizar" />
+            <Label layoutX="27.0" layoutY="304.0" text="Artículo enlazado">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x12" />
+               </font>
+            </Label>
+            <Button fx:id="btEnlazado" disable="true" layoutX="29.0" layoutY="326.0" mnemonicParsing="false" onAction="#mostrarEnlazado" prefHeight="25.0" prefWidth="217.0" text="-" />        
       </children>
     </Pane>
-    <Pane layoutX="587.0" layoutY="357.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">
+    <Pane layoutX="587.0" layoutY="432.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">
       <children>
         <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total en la categoría" />
         <Label fx:id="lblTotalArticulos" layoutX="48.0" layoutY="42.0" text="-">
@@ -68,7 +82,7 @@
         <Label font="$x1" layoutX="14.0" layoutY="26.0" text="Total de artículos" />
       </children>
     </Pane>
-    <Pane layoutX="726.0" layoutY="357.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">
+    <Pane layoutX="726.0" layoutY="432.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">
       <children>
         <Label font="$x1" layoutX="14.0" layoutY="75.0" text="Total tienda" />
         <Label id="lblTotalArticulos" fx:id="lblArticulosTienda" font="$x2" layoutX="48.0" layoutY="42.0" text="-" textFill="$x3" />
@@ -78,12 +92,12 @@
     </Pane>
       <Label layoutX="274.0" layoutY="18.0" text="Nombre">
          <font>
-            <Font name="System Bold" size="12.0" fx:id="x11" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <Label layoutX="7.0" layoutY="18.0" text="Código">
          <font>
-            <Font name="System Bold" size="12.0" fx:id="x11" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
   </children>

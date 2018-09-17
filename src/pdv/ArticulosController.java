@@ -12,13 +12,17 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import Data.Categoria;
 import Data.Conexion;
+import Data.Unidad;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -33,6 +37,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -59,13 +64,16 @@ public class ArticulosController implements Initializable {
     @FXML TextField tfCodigo;
     @FXML TextField tfExistencia;
     @FXML TextField tfPrecio;
+    @FXML TextField tfCosto;
     @FXML TextField tfBusquedaCodigo;
     @FXML TextField tfBusquedaNombre;
     
     @FXML ComboBox<Categoria> cbCategoria;
+    @FXML ComboBox<Unidad> cbUnidad;
     
     @FXML Button btNuevo;
     @FXML Button btActualizar;
+    @FXML Button btEnlazado;
     
     @FXML Label lblTotalArticulos;
     @FXML Label lblTotalEfectivo;
@@ -76,9 +84,15 @@ public class ArticulosController implements Initializable {
     
     ObservableList<Categoria> categorias = FXCollections.observableArrayList();
     ObservableList<Articulo> articulos = FXCollections.observableArrayList();
+    ObservableList<Unidad> unidades = FXCollections.observableArrayList();
     
     Categoria categoriaActual;
-    Articulo articuloActual;    
+    Articulo articuloActual;
+    
+    String tipo;
+    
+    int idArticuloEnlazado;
+    int cantidadEnlazado;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,7 +104,11 @@ public class ArticulosController implements Initializable {
         tcPrecio.setCellValueFactory(new PropertyValueFactory<Articulo, String>("precio"));
         
         cargarCategorias();
+        cargarUnidades();
         calcularTotalTienda();
+        
+        idArticuloEnlazado = 0;
+        cantidadEnlazado = 0;
     }
     
     public void tvCategorias_Click(MouseEvent event) {
@@ -117,25 +135,26 @@ public class ArticulosController implements Initializable {
                 tvCategorias.setItems(categorias);
                 
                 cbCategoria.setItems(categorias);
-                cbCategoria.getSelectionModel().selectFirst();
-                cbCategoria.setCellFactory(new Callback<ListView<Categoria>,ListCell<Categoria>>(){
-                        @Override
-                        public ListCell<Categoria> call(ListView<Categoria> p) {
-                            final ListCell<Categoria> cell = new ListCell<Categoria>(){
-                                @Override
-                                protected void updateItem(Categoria t, boolean bln) {
-                                    super.updateItem(t, bln);
-                                    if(t != null){
-                                        setText(t.getNombre());
-                                    }else{
-                                        setText(null);
-                                    }
-                                }
-                            };
-                            return cell;
-                        }
-                    });
+                cbCategoria.getSelectionModel().selectFirst();                
             }
+        } catch (Exception exc) {
+            
+        }
+    }
+    
+    public void cargarUnidades() {
+        try {
+            unidades = Unidad.obtenerUnidades();
+            if (unidades != null) {
+                cbUnidad.setItems(unidades);
+                cbUnidad.getSelectionModel().selectFirst();                
+            }
+            
+            /*categorias = Categoria.obtenerListaCategorias();
+            if (categorias != null) {
+                cbUnidad.setItems(categorias);
+                cbUnidad.getSelectionModel().selectFirst();
+            }*/
         } catch (Exception exc) {
             
         }
@@ -166,6 +185,11 @@ public class ArticulosController implements Initializable {
                     categoriaActual = Categoria.obtenerCategoria(c.getIdCategoria());
                     tvCategorias.getSelectionModel().select(categoriaActual);
                     cbCategoria.setValue(categoriaActual);
+                    tfCosto.setText(String.valueOf(c.getCosto()));
+                    cbUnidad.setValue(Unidad.obtenerUnidad(c.getUnidad()));
+                    idArticuloEnlazado = c.getIdArticuloEnlazado();
+                    cantidadEnlazado = c.getCantidadEnlazado();
+                    btEnlazado.setText(Articulo.obtenerArticuloId(idArticuloEnlazado).getNombre());
                 }
             } else {
             }
@@ -183,41 +207,13 @@ public class ArticulosController implements Initializable {
             cbCategoria.setValue(categoriaActual);
             btNuevo.setText("Guardar");
             btActualizar.setText("Cancelar");
+            deshabilitar(false);
+            btEnlazado.setText("-");
+            tipo = "NUEVO";
+            idArticuloEnlazado = 0;
+            cantidadEnlazado = 0;
         } else {
-            try 
-            {
-                if (tfNombre.getText().length() <= 0) {
-                    return;
-                }
-                Integer.parseInt(tfExistencia.getText());
-                Float.parseFloat(tfPrecio.getText());
-                
-                String nombre = tfNombre.getText();
-                int existencia = Integer.parseInt(tfExistencia.getText());
-                Float precio = Float.parseFloat(tfPrecio.getText());
-                String codigo = tfCodigo.getText();
-                Categoria c = cbCategoria.getValue();
-                int idCategoria = c.getIdCategoria();               
-                
-                Articulo.nuevoArticulo(nombre, codigo, existencia, idCategoria, precio, "NUEVO");
-                
-                btNuevo.setText("Nuevo");
-                btActualizar.setText("Actualizar");
-                tfNombre.setText("");
-                tfCodigo.setText("");
-                tfExistencia.setText("");
-                tfPrecio.setText("");
-                
-                cargarArticulos();
-            } catch (NumberFormatException exc) {
-                
-            }
-        }
-    }
-    
-    public void actualizarArticulo() {
-        if (btActualizar.getText().contains("Actualizar")) {
-            if(articuloActual != null) {
+            if ("NUEVO".equals(tipo)) {
                 try 
                 {
                     if (tfNombre.getText().length() <= 0) {
@@ -232,20 +228,81 @@ public class ArticulosController implements Initializable {
                     String codigo = tfCodigo.getText();
                     Categoria c = cbCategoria.getValue();
                     int idCategoria = c.getIdCategoria();
-                    int idArticulo = articuloActual.getIdArticulo();
-                    
-                    Articulo.actualizarArticulo(idArticulo, nombre, codigo, existencia, idCategoria, precio, existencia - articuloActual.getExistencia(),"ACTUALIZACION");
-                    
+                    Unidad u = cbUnidad.getValue();
+                    String unidad = u.getNombre();
+                    Float costo = Float.parseFloat(tfCosto.getText());
+
+                    Articulo.nuevoArticulo(nombre, codigo, existencia, idCategoria, precio, "NUEVO", unidad, costo, idArticuloEnlazado, cantidadEnlazado);
+
+                    btNuevo.setText("Nuevo");
+                    btActualizar.setText("Actualizar");
                     tfNombre.setText("");
                     tfCodigo.setText("");
                     tfExistencia.setText("");
                     tfPrecio.setText("");
 
+                    deshabilitar(true);
+
                     cargarArticulos();
                 } catch (NumberFormatException exc) {
 
                 }
+            } else if ("ACTUALIZAR".equals(tipo)) {
+                if(articuloActual != null) {
+                    try 
+                    {
+                        if (tfNombre.getText().length() <= 0) {
+                            return;
+                        }
+                        Integer.parseInt(tfExistencia.getText());
+                        Float.parseFloat(tfPrecio.getText());
+
+                        String nombre = tfNombre.getText();
+                        int existencia = Integer.parseInt(tfExistencia.getText());
+                        Float precio = Float.parseFloat(tfPrecio.getText());
+                        String codigo = tfCodigo.getText();
+                        Categoria c = cbCategoria.getValue();
+                        int idCategoria = c.getIdCategoria();
+                        int idArticulo = articuloActual.getIdArticulo();
+                        Unidad u = cbUnidad.getValue();
+                        String unidad = u.getNombre();
+                        Float costo = Float.parseFloat(tfCosto.getText());
+
+                        Articulo.actualizarArticulo(idArticulo, nombre, codigo, existencia, idCategoria, precio, existencia - articuloActual.getExistencia(), "ACTUALIZACION", unidad, costo, idArticuloEnlazado, cantidadEnlazado);
+
+                        btNuevo.setText("Nuevo");
+                        btActualizar.setText("Actualizar");
+                        tfNombre.setText("");
+                        tfCodigo.setText("");
+                        tfExistencia.setText("");
+                        tfPrecio.setText("");
+                        deshabilitar(true);
+                        tipo = "";
+
+                        cargarArticulos();
+                    } catch (NumberFormatException exc) {
+
+                    }
+                }
             }
+        }
+    }
+    
+    public void deshabilitar(boolean state) {
+        tfNombre.setDisable(state);
+        tfCodigo.setDisable(state);
+        tfExistencia.setDisable(state);
+        tfPrecio.setDisable(state);
+        tfCosto.setDisable(state);
+        btEnlazado.setDisable(state);
+    }
+    
+    public void actualizarArticulo() {
+        if (btActualizar.getText().contains("Actualizar")) {
+            btNuevo.setText("Guardar");
+            btActualizar.setText("Cancelar");
+            deshabilitar(false);
+            tipo = "ACTUALIZAR";
         } else {
             btNuevo.setText("Nuevo");
             btActualizar.setText("Actualizar");
@@ -253,6 +310,8 @@ public class ArticulosController implements Initializable {
             tfCodigo.setText("");
             tfExistencia.setText("");
             tfPrecio.setText("");
+            deshabilitar(true);
+            tipo = "";
         }
     }
     
@@ -300,5 +359,27 @@ public class ArticulosController implements Initializable {
             tvArticulos.setItems(articulos);
             tfBusquedaNombre.setText("");
         }
+    }
+    
+    public void mostrarEnlazado() {
+        try {
+            Stage stage = new Stage();        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Enlazado.fxml"));
+            Parent root = (Parent)loader.load();
+            EnlazadoController controller = loader.<EnlazadoController>getController();
+            controller.setEnlace(idArticuloEnlazado, cantidadEnlazado);
+            controller.setParent(this);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    public void setEnlace(int id, int c) {
+        idArticuloEnlazado = id;
+        cantidadEnlazado = c;
+        btEnlazado.setText(Articulo.obtenerArticuloId(idArticuloEnlazado).getNombre());
     }
 }

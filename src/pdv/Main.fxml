@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="apMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="apMain" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.MainController">
+<AnchorPane id="AnchorPane" fx:id="apMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="apMain" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.MainController">
   <children>
     <MenuBar prefWidth="500.0">
       <menus>
@@ -19,6 +19,7 @@
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaApartados" text="Apartados" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaIngresar" text="Ingresar mercancía" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarInventarioVentas" text="Ver inventario" />
+                  <MenuItem mnemonicParsing="false" onAction="#mostrarConvertidor" text="Cigarros" />
           </items>
         </Menu>
         <Menu fx:id="miArticulos" disable="true" mnemonicParsing="false" text="Inventario">

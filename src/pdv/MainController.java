@@ -204,6 +204,21 @@ public class MainController implements Initializable {
         }
     }
     
+    public void mostrarConvertidor()
+    {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Convertidor.fxml"));
+            Parent root = (Parent)loader.load();
+            ConvertidorController controller = loader.<ConvertidorController>getController();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            
+        }
+    }
+    
     public void cerrar() {
         Stage stage = (Stage) lblLogo.getScene().getWindow();
         stage.close();

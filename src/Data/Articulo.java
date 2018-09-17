@@ -21,11 +21,15 @@ import javafx.collections.ObservableList;
 public class Articulo {
     private int idArticulo;
     private int idCategoria;
+    private int idArticuloEnlazado;
     private String categoria;
     private String nombre;
     private int existencia;
     private Float precio;
     private String codigo;
+    private String unidad;
+    private Float costo;
+    private int cantidadEnlazado;
     //Variables para la venta
     private Float cantidadVenta;
     private Float totalVenta;
@@ -48,7 +52,8 @@ public class Articulo {
         this.nombre = n.nombre;
         this.existencia = n.existencia;
         this.precio = n.precio;
-        this.codigo = n.codigo;        
+        this.codigo = n.codigo; 
+        this.unidad = n.unidad;
     }
     
     public void setIdArticulo(int idArticulo) {
@@ -65,6 +70,14 @@ public class Articulo {
     
     public int getIdCategoria() {
         return this.idCategoria;
+    }
+    
+    public void setIdArticuloEnlazado(int idArticuloEnlazado) {
+        this.idArticuloEnlazado = idArticuloEnlazado;
+    }
+    
+    public int getIdArticuloEnlazado() {
+        return this.idArticuloEnlazado;
     }
     
     public void setNombre(String nombre) {
@@ -105,6 +118,30 @@ public class Articulo {
     
     public String getCategoria() {
         return this.categoria;
+    }
+    
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
+    }
+    
+    public String getUnidad() {
+        return this.unidad;
+    }
+    
+    public void setCosto(Float costo) {
+        this.costo = costo;
+    }
+    
+    public Float getCosto() {
+        return this.costo;
+    }
+    
+    public void setCantidadEnlazado(int cantidadEnlazado) {
+        this.cantidadEnlazado = cantidadEnlazado;
+    }
+    
+    public int getCantidadEnlazado() {
+        return this.cantidadEnlazado;
     }
     
     public void setCantidadVenta(Float cantidadVenta) {
@@ -187,6 +224,10 @@ public class Articulo {
                     a.setNombre(res.getString("nombre"));
                     a.setPrecio(res.getFloat("precio"));
                     a.setCategoria(res.getString("categoria"));
+                    a.setUnidad(res.getString("unidad"));
+                    a.setCosto(res.getFloat("costo"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
                     articulos.add(a);
                 }
             }
@@ -197,10 +238,68 @@ public class Articulo {
         return articulos;
     }
     
-    public static void nuevoArticulo(String nombre, String codigo, int existencia, int idCategoria, Float precio, String folio) {
+    public static Articulo obtenerArticuloId(int idArticulo) {
+        Articulo a = new Articulo();
         try {
             Conexion con = new Conexion();
-            String query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio) VALUES ('" + nombre + "', '" + codigo + "', " + idCategoria + ", " + existencia + ", " + precio + ")";
+            String query = "SELECT articulos.*, categorias.nombre AS categoria FROM articulos INNER JOIN categorias ON categorias.id_categoria = articulos.id_categoria WHERE articulos.id_articulo = " + idArticulo;
+            ResultSet res = con.executeQueryResultSet(query);
+            if (res != null) {
+                while (res.next()) {                    
+                    a.setCodigo(res.getString("codigo"));
+                    a.setExistencia(res.getInt("existencia"));
+                    a.setIdArticulo(res.getInt("id_articulo"));
+                    a.setIdCategoria(res.getInt("id_categoria"));
+                    a.setNombre(res.getString("nombre"));
+                    a.setPrecio(res.getFloat("precio"));
+                    a.setCategoria(res.getString("categoria"));
+                    a.setUnidad(res.getString("unidad"));
+                    a.setCosto(res.getFloat("costo"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                }
+            }
+            con.closeCon();
+        } catch (Exception exc) {
+            
+        }
+        return a;
+    }
+    
+    public static ObservableList<Articulo> obtenerArticulosNombreCategoria(String categoria, String articulo) {
+        ObservableList<Articulo> articulos = FXCollections.observableArrayList();
+        try {
+            Conexion con = new Conexion();
+            String query = "SELECT articulos.*, categorias.nombre AS categoria FROM articulos INNER JOIN categorias ON categorias.id_categoria = articulos.id_categoria WHERE categorias.nombre = '" + categoria + "' AND articulos.nombre LIKE '" + articulo + "'";
+            ResultSet res = con.executeQueryResultSet(query);
+            if (res != null) {
+                while (res.next()) {
+                    Articulo a = new Articulo();
+                    a.setCodigo(res.getString("codigo"));
+                    a.setExistencia(res.getInt("existencia"));
+                    a.setIdArticulo(res.getInt("id_articulo"));
+                    a.setIdCategoria(res.getInt("id_categoria"));
+                    a.setNombre(res.getString("nombre"));
+                    a.setPrecio(res.getFloat("precio"));
+                    a.setCategoria(res.getString("categoria"));
+                    a.setUnidad(res.getString("unidad"));
+                    a.setCosto(res.getFloat("costo"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    articulos.add(a);
+                }
+            }
+            con.closeCon();
+        } catch (Exception exc) {
+            
+        }
+        return articulos;
+    }
+    
+    public static void nuevoArticulo(String nombre, String codigo, int existencia, int idCategoria, Float precio, String folio, String unidad, Float costo, int idArticuloEnlazado, int cantidadEnlazado) {
+        try {
+            Conexion con = new Conexion();
+            String query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado) VALUES ('" + nombre + "', '" + codigo + "', " + idCategoria + ", " + existencia + ", " + precio + ", '" + unidad + "', " + costo + ", " + idArticuloEnlazado + ", " + cantidadEnlazado + ")";
             int id_articulo = con.executeQueryLastID(query);            
             con.closeCon();
             insertarRegistroEntrega(id_articulo, existencia, folio);
@@ -209,10 +308,13 @@ public class Articulo {
         }
     }
     
-    public static void actualizarArticulo(int idArticulo, String nombre, String codigo, int existencia, int idCategoria, Float precio, int diferencia, String folio) {
+    public static void actualizarArticulo(int idArticulo, String nombre, String codigo, int existencia, int idCategoria, Float precio, int diferencia, String folio, String unidad, Float costo, int idArticuloEnlazado, int cantidadEnlazado) {
         try {
             Conexion con = new Conexion();
-            String query = "UPDATE articulos SET nombre = '" + nombre + "', codigo = '" + codigo + "', existencia = " + existencia + ", id_categoria = " + idCategoria + ", precio = " + precio + " WHERE id_articulo = " + idArticulo;
+            String query = "UPDATE articulos SET nombre = '" + nombre + "', codigo = '" + codigo + "', existencia = " + existencia + ", id_categoria = " + idCategoria + 
+                            ", precio = " + precio + ", unidad = '" + unidad + "', costo = " + costo + 
+                            ", id_articulo_enlazado = " + idArticuloEnlazado + ", cantidad_enlazado = " + cantidadEnlazado +
+                            " WHERE id_articulo = " + idArticulo;
             con.executeQueryString(query);
             con.closeCon();
             insertarRegistroEntrega(idArticulo, diferencia, folio);
@@ -259,7 +361,10 @@ public class Articulo {
                     a.setIdCategoria(res.getInt("id_categoria"));
                     a.setNombre(res.getString("nombre"));
                     a.setPrecio(res.getFloat("precio"));
-                    a.setCategoria(res.getString("categoria"));                    
+                    a.setCategoria(res.getString("categoria"));  
+                    a.setUnidad(res.getString("unidad"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
                     articulos.add(a);
                 }
             }
@@ -286,6 +391,9 @@ public class Articulo {
                     a.setNombre(res.getString("nombre"));
                     a.setPrecio(res.getFloat("precio"));
                     a.setCategoria(res.getString("categoria"));
+                    a.setUnidad(res.getString("unidad"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
                     articulos.add(a);
                 }
             }
@@ -347,6 +455,8 @@ public class Articulo {
                     a.setCantidadEntrega(res.getInt("cantidadEntrega"));
                     a.setFechaEntrega(res.getString("fechaEntrega"));
                     a.setFolio(res.getString("folio"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
                     articulos.add(a);
                 }
             }
@@ -374,6 +484,8 @@ public class Articulo {
                     a.setCantidadEntrega(res.getInt("cantidadEntrega"));
                     a.setFechaEntrega(res.getString("fechaEntrega"));
                     a.setFolio(res.getString("folio"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
                     articulos.add(a);
                 }
             }

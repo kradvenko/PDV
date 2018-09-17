@@ -66,6 +66,7 @@ public class NuevaVentaController implements Initializable {
     @FXML TableColumn<Articulo, String> tcVentaImporte;
     @FXML TableColumn<Articulo, String> tcVentaDescuentoArticuloEfectivo;
     @FXML TableColumn<Articulo, String> tcVentaDescuentoArticuloPorcentaje;
+    @FXML TableColumn<Articulo, String> tcVentaUnidad;
     
     @FXML TextField tfBusquedaCodigo;
     @FXML TextField tfBusquedaNombre;
@@ -104,8 +105,9 @@ public class NuevaVentaController implements Initializable {
         tcVentaPrecio.setCellValueFactory(new PropertyValueFactory<Articulo, String>("precio"));
         tcVentaCantidad.setCellValueFactory(new PropertyValueFactory<Articulo, String>("cantidadVenta"));
         tcVentaImporte.setCellValueFactory(new PropertyValueFactory<Articulo, String>("totalVenta"));
-        tcVentaDescuentoArticuloEfectivo.setCellValueFactory(new PropertyValueFactory<Articulo, String>("descuentoArticuloEfectivo"));
-        tcVentaDescuentoArticuloPorcentaje.setCellValueFactory(new PropertyValueFactory<Articulo, String>("descuentoArticuloPorcentaje"));
+        tcVentaUnidad.setCellValueFactory(new PropertyValueFactory<Articulo, String>("unidad"));
+        //tcVentaDescuentoArticuloEfectivo.setCellValueFactory(new PropertyValueFactory<Articulo, String>("descuentoArticuloEfectivo"));
+        //tcVentaDescuentoArticuloPorcentaje.setCellValueFactory(new PropertyValueFactory<Articulo, String>("descuentoArticuloPorcentaje"));
         
         subTotalVenta = 0f;
         totalVenta = 0f;        
@@ -134,7 +136,7 @@ public class NuevaVentaController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             tvArticulos.getItems().clear();
             articulos = Articulo.obtenerArticulosNombre(tfBusquedaNombre.getText());
-            tvArticulos.setItems(articulos);            
+            tvArticulos.setItems(articulos);
         }
     }
     
