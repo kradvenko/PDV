@@ -219,8 +219,53 @@ public class MainController implements Initializable {
         }
     }
     
+    public void mostrarCompras()
+    {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Compras.fxml"));
+            Parent root = (Parent)loader.load();
+            ComprasController controller = loader.<ComprasController>getController();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            mostrarMensaje(e.getLocalizedMessage());
+        }
+    }
+    
+    public void mostrarCorteCompras()
+    {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CorteCompras.fxml"));
+            Parent root = (Parent)loader.load();
+            CorteComprasController controller = loader.<CorteComprasController>getController();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            
+        }
+    }
+    
     public void cerrar() {
         Stage stage = (Stage) lblLogo.getScene().getWindow();
         stage.close();
+    }
+    
+    public void mostrarMensaje(String mensaje) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogWindow.fxml"));
+            Parent root = (Parent)loader.load();
+            DialogWindowController controller = loader.<DialogWindowController>getController();
+            controller.setMessage(mensaje);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+
+        }
     }
 }

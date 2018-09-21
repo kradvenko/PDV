@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="pdv.CorteController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.CorteController">
   <children>
-    <Label layoutX="14.0" layoutY="14.0" text="Fecha">
+      <Label layoutX="14.0" layoutY="12.0" text="Turno">
+         <font>
+            <Font name="System Bold" size="12.0" fx:id="x11" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbTurnos" layoutX="58.0" layoutY="9.0" prefHeight="25.0" prefWidth="192.0" />
+    <Label layoutX="278.0" layoutY="11.0" text="Fecha">
       <font>
         <Font name="System Bold" size="12.0" fx:id="x1" />
       </font>
     </Label>
-    <TextField id="tfFEcha" fx:id="tfFechaInicio" layoutX="55.0" layoutY="11.0" onKeyPressed="#tfFechaInicio_KeyPressed" prefWidth="132.0" promptText="dd/mm/aaaa" />
+    <TextField id="tfFEcha" fx:id="tfFechaInicio" layoutX="319.0" layoutY="8.0" onKeyPressed="#tfFechaInicio_KeyPressed" prefWidth="132.0" promptText="dd/mm/aaaa" />
     <TableView id="tvVenta" fx:id="tvVentaDetalle" layoutX="14.0" layoutY="293.0" prefHeight="193.0" prefWidth="383.0">
       <columns>
         <TableColumn fx:id="tcDetalleNombre" prefWidth="75.0" text="Nombre" />
@@ -101,7 +114,7 @@
         </Tab>
       </tabs>
     </TabPane>
-      <Button layoutX="538.0" layoutY="6.0" mnemonicParsing="false" onAction="#enviarVentas" prefHeight="26.6015625" prefWidth="113.0" text="Enviar ventas" />
+      <Button disable="true" layoutX="538.0" layoutY="6.0" mnemonicParsing="false" onAction="#enviarVentas" prefHeight="26.6015625" prefWidth="113.0" text="Enviar ventas" />
   </children>
   <stylesheets>
     <URL value="@../Styles/style.css" />

@@ -300,9 +300,18 @@ public class Articulo {
         try {
             Conexion con = new Conexion();
             String query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado) VALUES ('" + nombre + "', '" + codigo + "', " + idCategoria + ", " + existencia + ", " + precio + ", '" + unidad + "', " + costo + ", " + idArticuloEnlazado + ", " + cantidadEnlazado + ")";
-            int id_articulo = con.executeQueryLastID(query);            
-            con.closeCon();
+            
+            int id_articulo = con.executeQueryLastID(query);
             insertarRegistroEntrega(id_articulo, existencia, folio);
+            
+            if ("CIGARROS".equals(Categoria.obtenerCategoria(idCategoria).getNombre())) {
+                query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado) "
+                        + "VALUES ('" + nombre + " S', '" + codigo + "', " + Categoria.obtenerCategoria("CIGARROS SUELTOS").getIdCategoria() + ", 0, 0, '" + unidad + "', 0, 0, 0)";
+                int id_enlazado = con.executeQueryLastID(query);
+                query = "UPDATE articulos SET id_articulo_enlazado = " + id_enlazado + " WHERE id_articulo = " + id_articulo;
+                con.executeQueryString(query);
+            }
+            con.closeCon();
         } catch (Exception exc) {
             
         }

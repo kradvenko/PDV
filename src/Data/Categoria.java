@@ -98,6 +98,25 @@ public class Categoria {
         return c;
     }
     
+    public static Categoria obtenerCategoria(String categoria) {
+        Categoria c = new Categoria();
+        try {
+            Conexion con = new Conexion();
+            String query = "SELECT * FROM categorias WHERE nombre = '" + categoria + "'";
+            ResultSet res = con.executeQueryResultSet(query);
+            if (res != null) {
+                while (res.next()) {
+                    c = new Categoria();
+                    c.setIdCategoria(res.getInt("id_categoria"));
+                    c.setNombre(res.getString("nombre"));
+                }
+            }
+        } catch (Exception exc) {
+            
+        }
+        return c;
+    }
+    
     @Override
     public String toString() {
         return this.nombre;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="74.0" prefWidth="160.0" styleClass="apMain_notas_red" stylesheets="@../Styles/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.CantidadCompraController">
+   <children>
+      <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="17.0" prefWidth="59.0" text="Cantidad">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="20.0" layoutY="38.0" onKeyPressed="#tfCantidad_KeyPressed" prefHeight="25.0" prefWidth="59.0" text="1" />
+      <Label alignment="CENTER" layoutX="87.0" layoutY="14.0" prefHeight="17.0" prefWidth="59.0" text="Costo">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCosto" alignment="CENTER" layoutX="87.0" layoutY="38.0" onKeyPressed="#tfCantidad_KeyPressed" prefHeight="25.0" prefWidth="59.0" text="0" />
+   </children>
+</AnchorPane>

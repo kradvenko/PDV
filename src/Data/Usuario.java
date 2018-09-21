@@ -120,4 +120,9 @@ public class Usuario {
             
         }
     }
+    
+    @Override
+    public String toString() {
+        return this.usuario;
+    }
 }

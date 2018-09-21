@@ -197,6 +197,53 @@ public class Venta {
         return ventas;
     }
     
+    public static ObservableList<Venta> obtenerVentasFecha(String fecha, Turno turno) {
+        ObservableList<Venta> ventas = FXCollections.observableArrayList();
+        
+        try {
+            Conexion con = new Conexion();
+            String query = "SELECT * FROM ventas WHERE fecha >= '" + fecha + " " + turno.getHoraInicio() + "' AND fecha <= '" + fecha + " " + turno.getHoraFin() + "' ";
+            ResultSet res = con.executeQueryResultSet(query);
+            if (res != null) {
+                while (res.next()) {
+                    Venta v = new Venta();
+                    v.setDescuentoEfectivo(res.getFloat("descuento_efectivo"));
+                    v.setDescuentoPorcentaje(res.getFloat("descuento_porcentaje"));
+                    v.setEstado(res.getString("estado"));
+                    v.setFecha(res.getString("fecha"));
+                    v.setIdVenta(res.getInt("id_venta"));
+                    v.setSubTotalVenta(res.getFloat("subtotal"));
+                    v.setTipo(res.getString("tipo"));
+                    v.setTotalVenta(res.getFloat("total"));
+                    v.setCambio(res.getFloat("cambio"));
+                    v.setVendedor(res.getString("vendedor"));
+                    query = "SELECT venta_detalle.*, articulos.nombre, articulos.precio, articulos.codigo FROM venta_detalle INNER JOIN articulos ON articulos.id_articulo = venta_detalle.id_articulo WHERE id_venta = " + v.getIdVenta();
+                    ResultSet detalle = con.executeQueryResultSet(query);
+                    ObservableList<Articulo> detalleVenta = FXCollections.observableArrayList();
+                    if (detalle != null) {                        
+                        detalleVenta.clear();
+                        while (detalle.next()) {
+                            Articulo a = new Articulo();
+                            a.setCantidadVenta(detalle.getFloat("cantidad"));
+                            a.setCodigo(detalle.getString("codigo"));
+                            a.setIdArticulo(detalle.getInt("id_articulo"));
+                            a.setNombre(detalle.getString("nombre"));
+                            a.setPrecio(detalle.getFloat("precio"));
+                            a.setTotalVenta(detalle.getFloat("total"));
+                            detalleVenta.add(a);
+                        }
+                    }
+                    v.setDetalle(detalleVenta);
+                    ventas.add(v);
+                }
+            }
+            con.closeCon();
+        } catch (Exception exc) {
+            
+        }
+        return ventas;
+    }
+    
     public static void cancelarVenta(Venta v, String estado) {
         try {
             Conexion con = new Conexion();

@@ -15,3 +15,7 @@ and open the template in the editor.
 .apMain_notas {
     -fx-background-image: url('../Styles/subtle-grid-pattern-2408.png');    
 }
+
+.apMain_notas_red {
+    -fx-background-image: url('../Styles/subtle-grid-pattern-2408-red.png');    
+}

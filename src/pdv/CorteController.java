@@ -9,6 +9,7 @@ package pdv;
 import Data.Abono;
 import Data.Articulo;
 import Data.Reporte;
+import Data.Turno;
 import Data.Usuario;
 import Data.Venta;
 import java.net.URL;
@@ -22,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -75,9 +77,12 @@ public class CorteController implements Initializable {
     @FXML private Label lblAbonoEfectivo;
     @FXML private Label lblAbonoTarjeta;
     
+    @FXML private ComboBox cbTurnos;
+    
     private ObservableList<Venta> ventas;
     private ObservableList<Articulo> detalle;
-    private ObservableList<Abono> abonos;    
+    private ObservableList<Abono> abonos;
+    private ObservableList<Turno> turnos;
     
     private Venta ventaActual;
     private Usuario usuarioActual;
@@ -115,6 +120,7 @@ public class CorteController implements Initializable {
         abonos = Abono.obtenerAbonosFecha(tfFechaInicio.getText());
         tvAbonos.setItems(abonos);
         calcularCorte();
+        obtenerTurnos();
     }
     
     public void setUsuario(Usuario u) {
@@ -125,7 +131,7 @@ public class CorteController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             try {
                 tvVentas.getItems().clear();
-                ventas = Venta.obtenerVentasFecha(tfFechaInicio.getText());
+                ventas = Venta.obtenerVentasFecha(tfFechaInicio.getText(), (Turno)cbTurnos.getValue());
                 tvVentas.setItems(ventas);
                 tvAbonos.getItems().clear();
                 abonos = Abono.obtenerAbonosFecha(tfFechaInicio.getText());
@@ -248,5 +254,11 @@ public class CorteController implements Initializable {
     
     public void enviarVentas() {
         
+    }
+    
+    public void obtenerTurnos() {
+        turnos = Turno.obtenerTurnos();
+        cbTurnos.setItems(turnos);
+        cbTurnos.getSelectionModel().selectFirst();
     }
 }

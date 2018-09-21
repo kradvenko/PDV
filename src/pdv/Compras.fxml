@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="527.0" prefWidth="689.0" styleClass="apMain_notas" stylesheets="@../Styles/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.ComprasController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Categorias">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbCategoria" layoutX="14.0" layoutY="33.0" onAction="#cargarArticulos" prefHeight="25.0" prefWidth="240.0" />
+      <TableView fx:id="tvArticulos" layoutX="14.0" layoutY="124.0" onMouseClicked="#tvArticulos_Click" prefHeight="389.0" prefWidth="315.0">
+         <columns>
+            <TableColumn fx:id="tcNombre" prefWidth="302.0" text="Artículo" />
+         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#agregarACompra" text="Agregar" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <Label layoutX="14.0" layoutY="65.0" text="Filtrar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfFiltro" layoutX="14.0" layoutY="90.0" onKeyPressed="#tfFiltro_KeyPressed" prefHeight="25.0" prefWidth="240.0" />
+      <Separator layoutX="342.0" layoutY="15.0" orientation="VERTICAL" prefHeight="496.0" prefWidth="12.0" />
+      <Label layoutX="360.0" layoutY="11.0" text="Proveedor">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbProveedor" layoutX="360.0" layoutY="30.0" onAction="#cargarArticulos" prefHeight="25.0" prefWidth="240.0" />
+      <TableView fx:id="tvListaCompra" layoutX="361.0" layoutY="124.0" onMouseClicked="#tvListaCompra_Click" prefHeight="344.0" prefWidth="315.0">
+         <columns>
+            <TableColumn fx:id="tcNombreCompra" prefWidth="174.0" text="Artículo" />
+            <TableColumn fx:id="tcCantidadCompra" prefWidth="61.0" text="Cantidad" />
+            <TableColumn fx:id="tcCostoCompra" prefWidth="75.0" text="Costo" />
+         </columns>
+      </TableView>
+      <Label layoutX="361.0" layoutY="94.0" text="Lista de compra">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="611.0" layoutY="30.0" mnemonicParsing="false" onAction="#mostrarProveedorDialog" prefHeight="25.0" prefWidth="66.0" text="Agregar" />
+      <Button layoutX="362.0" layoutY="473.0" mnemonicParsing="false" onAction="#guardarCompra" prefHeight="38.0" prefWidth="145.0" text="Guardar" />
+      <Button fx:id="btnCerrar" layoutX="528.0" layoutY="473.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="38.0" prefWidth="145.0" text="Cerrar" />
+   </children>
+</AnchorPane>

@@ -12,14 +12,16 @@
   <children>
     <MenuBar prefWidth="500.0">
       <menus>
-        <Menu fx:id="miVentas" disable="true" mnemonicParsing="false" text="Ventas">
+        <Menu fx:id="miVentas" disable="true" mnemonicParsing="false" text="Tienda">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaVenta" text="Nueva" />
-            <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaCorte" text="Corte" />
+            <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaVenta" text="Nueva Venta" />
+            <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaCorte" text="Corte Ventas" />
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaApartados" text="Apartados" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaIngresar" text="Ingresar mercancía" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarInventarioVentas" text="Ver inventario" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarConvertidor" text="Cigarros" />
+                  <MenuItem mnemonicParsing="false" onAction="#mostrarCompras" text="Nueva Compra" />
+                  <MenuItem mnemonicParsing="false" onAction="#mostrarCorteCompras" text="Corte Compras" />
           </items>
         </Menu>
         <Menu fx:id="miArticulos" disable="true" mnemonicParsing="false" text="Inventario">
