@@ -6,10 +6,12 @@
 
 package pdv;
 
+import Data.Articulo;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,8 +33,12 @@ public class DialogNuevaCantidadVentaController implements Initializable {
     @FXML TextField tfDescuentoPorcentaje;
     @FXML TextField tfImporte;
     
+    @FXML Label lblTipo;
+    
     private NuevaVentaController parent;
     private int index;
+    
+    private Articulo articuloActual;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,6 +47,25 @@ public class DialogNuevaCantidadVentaController implements Initializable {
     
     public void setParent(NuevaVentaController parent) {
         this.parent = parent;
+        articuloActual = parent.articuloVentaActual;
+        if ("GRAMOS".equals(articuloActual.getUnidad())) {
+            lblTipo.setText("Peso (Gramos)");
+            //calcularParaGramos();
+        }
+    }
+    
+    public void actualizarImporte() {
+        try {
+            if (tfCantidad.getText().length() > 0) {
+                Float importe = 0f;
+                Float cantidad = Float.parseFloat(tfCantidad.getText());
+                importe = cantidad * parent.articuloVentaActual.getPrecio();
+                tfImporte.setText(String.valueOf(importe));
+                calcularParaGramos();
+            }
+        } catch (Exception exc) {
+            tfCantidad.setText("0.0");            
+        }
     }
     
     public void setCantidad(float cantidad, float descuentoEfectivo, float descuentoPorcentaje, float importe, int index) {
@@ -48,7 +73,7 @@ public class DialogNuevaCantidadVentaController implements Initializable {
         tfDescuentoEfectivo.setText(String.valueOf(descuentoEfectivo));
         tfDescuentoPorcentaje.setText(String.valueOf(descuentoPorcentaje));
         tfImporte.setText(String.valueOf(importe));
-        this.index = index;
+        this.index = index;        
     }
     
     public void tfCantidad_KeyPressed(KeyEvent event) {
@@ -67,6 +92,17 @@ public class DialogNuevaCantidadVentaController implements Initializable {
         } else if (event.getCode() == KeyCode.ESCAPE) {
             Stage stage = (Stage) tfCantidad.getScene().getWindow();
             stage.close();
+        } else {
+            actualizarImporte();
+        }
+    }
+    
+    public void calcularParaGramos() {
+        if ("GRAMOS".equals(articuloActual.getUnidad())) {
+            Float importe = 0f;
+            importe = articuloActual.getPrecio() / 1000;
+            importe = importe * Float.parseFloat(tfCantidad.getText());
+            tfImporte.setText(String.valueOf(importe));
         }
     }
 }

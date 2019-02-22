@@ -7,12 +7,15 @@
 package pdv;
 
 import Data.Articulo;
+import Data.Bitacora;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import Data.Categoria;
 import Data.Conexion;
+import Data.Dialog;
 import Data.Unidad;
+import Data.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -67,6 +70,8 @@ public class ArticulosController implements Initializable {
     @FXML TextField tfCosto;
     @FXML TextField tfBusquedaCodigo;
     @FXML TextField tfBusquedaNombre;
+    @FXML TextField tfPorcentajeGanancia;
+    @FXML TextField tfCantidadGanancia;
     
     @FXML ComboBox<Categoria> cbCategoria;
     @FXML ComboBox<Unidad> cbUnidad;
@@ -88,6 +93,7 @@ public class ArticulosController implements Initializable {
     
     Categoria categoriaActual;
     Articulo articuloActual;
+    Usuario usuarioActual;
     
     String tipo;
     
@@ -189,6 +195,8 @@ public class ArticulosController implements Initializable {
                     cbUnidad.setValue(Unidad.obtenerUnidad(c.getUnidad()));
                     idArticuloEnlazado = c.getIdArticuloEnlazado();
                     cantidadEnlazado = c.getCantidadEnlazado();
+                    tfPorcentajeGanancia.setText(String.valueOf(c.getPorcentajeGanancia()));
+                    tfCantidadGanancia.setText(String.valueOf(c.getCantidadGanancia()));
                     btEnlazado.setText(Articulo.obtenerArticuloId(idArticuloEnlazado).getNombre());
                 }
             } else {
@@ -231,15 +239,21 @@ public class ArticulosController implements Initializable {
                     Unidad u = cbUnidad.getValue();
                     String unidad = u.getNombre();
                     Float costo = Float.parseFloat(tfCosto.getText());
+                    Float porcentajeGanancia = Float.parseFloat(tfPorcentajeGanancia.getText());
+                    Float cantidadGanancia = Float.parseFloat(tfCantidadGanancia.getText());
 
-                    Articulo.nuevoArticulo(nombre, codigo, existencia, idCategoria, precio, "NUEVO", unidad, costo, idArticuloEnlazado, cantidadEnlazado);
+                    Articulo.nuevoArticulo(nombre, codigo, existencia, idCategoria, precio, "NUEVO", unidad, costo, idArticuloEnlazado, cantidadEnlazado, porcentajeGanancia, cantidadGanancia);
 
                     btNuevo.setText("Nuevo");
                     btActualizar.setText("Actualizar");
                     tfNombre.setText("");
                     tfCodigo.setText("");
                     tfExistencia.setText("");
-                    tfPrecio.setText("");
+                    tfExistencia.setText("0");
+                    tfPrecio.setText("0");
+                    tfCosto.setText("0");
+                    tfPorcentajeGanancia.setText("0");
+                    tfCantidadGanancia.setText("0");
 
                     deshabilitar(true);
 
@@ -267,15 +281,22 @@ public class ArticulosController implements Initializable {
                         Unidad u = cbUnidad.getValue();
                         String unidad = u.getNombre();
                         Float costo = Float.parseFloat(tfCosto.getText());
+                        Float porcentajeGanancia = Float.parseFloat(tfPorcentajeGanancia.getText());
+                        Float cantidadGanancia = Float.parseFloat(tfCantidadGanancia.getText());
+                        
+                        Bitacora.guardarBitacoraGeneral("ACTUALIZACIÓN ARTÍCULO - Id: " + idArticulo + ", Nombre: " + nombre + ",  Código: " + codigo + ", Existencia: " + existencia + ", Precio: " + precio, usuarioActual.getIdUsuario());
 
-                        Articulo.actualizarArticulo(idArticulo, nombre, codigo, existencia, idCategoria, precio, existencia - articuloActual.getExistencia(), "ACTUALIZACION", unidad, costo, idArticuloEnlazado, cantidadEnlazado);
+                        Articulo.actualizarArticulo(idArticulo, nombre, codigo, existencia, idCategoria, precio, existencia - articuloActual.getExistencia(), "ACTUALIZACION", unidad, costo, idArticuloEnlazado, cantidadEnlazado, porcentajeGanancia, cantidadGanancia);
 
                         btNuevo.setText("Nuevo");
                         btActualizar.setText("Actualizar");
                         tfNombre.setText("");
                         tfCodigo.setText("");
-                        tfExistencia.setText("");
-                        tfPrecio.setText("");
+                        tfExistencia.setText("0");
+                        tfPrecio.setText("0");
+                        tfCosto.setText("0");
+                        tfPorcentajeGanancia.setText("0");
+                        tfCantidadGanancia.setText("0");
                         deshabilitar(true);
                         tipo = "";
 
@@ -295,10 +316,15 @@ public class ArticulosController implements Initializable {
         tfPrecio.setDisable(state);
         tfCosto.setDisable(state);
         btEnlazado.setDisable(state);
+        tfPorcentajeGanancia.setDisable(state);
+        tfCantidadGanancia.setDisable(state);
     }
     
     public void actualizarArticulo() {
         if (btActualizar.getText().contains("Actualizar")) {
+            if (articuloActual == null) {
+                return;
+            }
             btNuevo.setText("Guardar");
             btActualizar.setText("Cancelar");
             deshabilitar(false);
@@ -308,8 +334,12 @@ public class ArticulosController implements Initializable {
             btActualizar.setText("Actualizar");
             tfNombre.setText("");
             tfCodigo.setText("");
-            tfExistencia.setText("");
-            tfPrecio.setText("");
+            tfExistencia.setText("0");
+            tfPrecio.setText("0");
+            tfCosto.setText("0");
+            tfPorcentajeGanancia.setText("0");
+            tfCantidadGanancia.setText("0");
+            articuloActual = null;
             deshabilitar(true);
             tipo = "";
         }
@@ -381,5 +411,84 @@ public class ArticulosController implements Initializable {
         idArticuloEnlazado = id;
         cantidadEnlazado = c;
         btEnlazado.setText(Articulo.obtenerArticuloId(idArticuloEnlazado).getNombre());
+    }
+    
+    public void calcularParaGramos() {
+        if (tipo != null) {
+            if (tipo.length() > 0) {
+                if ("GRAMOS".equals(cbUnidad.getValue().getNombre())) {
+                    if (tfPrecio.getText().length() > 0) {
+                        Float precio = Float.parseFloat(tfPrecio.getText());
+                        precio = precio / 1000f;
+                        tfPrecio.setText(String.valueOf(precio));
+                    }
+                } else {
+
+                }
+            }
+        }
+    }
+    
+    public void calcularGananciaPorcentaje(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+                double porcentaje;
+                double cantidad;
+                double costo;
+
+                porcentaje = Float.parseFloat(tfPorcentajeGanancia.getText());
+                porcentaje = (double) Math.round(porcentaje * 100) / 100;
+                
+                costo = Float.parseFloat(tfCosto.getText());
+                
+                tfPorcentajeGanancia.setText(String.valueOf(porcentaje * 100));
+                cantidad = costo * (porcentaje/100);
+                cantidad = (double) Math.round(cantidad * 100) / 100;
+                
+                tfCantidadGanancia.setText(String.valueOf(cantidad));
+                
+            } catch (Exception exc) {
+                Dialog d = new Dialog();
+                d.mensaje = exc.getMessage();
+                d.mostrarMensaje();
+            }
+        }
+    }
+    
+    public void calcularGananciaCantidad(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+                double porcentaje;
+                double cantidad;
+                double costo;
+                double precio;
+                
+                precio = Float.parseFloat(tfPrecio.getText());
+                costo = Float.parseFloat(tfCosto.getText());
+                
+                cantidad = Float.parseFloat(tfCantidadGanancia.getText());
+                cantidad = (double) Math.round(cantidad * 100) / 100;
+                
+                if (precio - costo != cantidad) {
+                    precio = costo + cantidad;
+                    tfPrecio.setText(String.valueOf(precio));
+                }
+                
+                porcentaje = 1 - (costo/precio);
+                tfPorcentajeGanancia.setText(String.valueOf(porcentaje));
+
+                porcentaje = Float.parseFloat(tfPorcentajeGanancia.getText());
+                porcentaje = (double) Math.round(porcentaje * 100) / 100;                
+                
+                tfPorcentajeGanancia.setText(String.valueOf(porcentaje * 100));
+                
+                tfCantidadGanancia.setText(String.valueOf(cantidad));
+                
+            } catch (Exception exc) {
+                Dialog d = new Dialog();
+                d.mensaje = exc.getMessage();
+                d.mostrarMensaje();
+            }
+        }
     }
 }

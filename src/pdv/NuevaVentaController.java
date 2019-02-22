@@ -9,7 +9,9 @@ package pdv;
 import Data.Apartado;
 import Data.Articulo;
 import Data.Categoria;
+import Data.Dialog;
 import Data.Reporte;
+import Data.Usuario;
 import Data.Venta;
 import java.net.URL;
 import java.security.SecureRandom;
@@ -78,6 +80,7 @@ public class NuevaVentaController implements Initializable {
     
     @FXML Label lblSubTotalVenta;
     @FXML Label lblTotalVenta;
+    @FXML Label lblPiezas;
     
     @FXML CheckBox cbImprimir;
     
@@ -86,13 +89,16 @@ public class NuevaVentaController implements Initializable {
     private ObservableList<Articulo> articulos = FXCollections.observableArrayList();
     private ObservableList<Articulo> detalleVenta = FXCollections.observableArrayList();
     
-    private Articulo articuloActual;
-    private Articulo articuloVentaActual;
+    public Articulo articuloActual;
+    public Articulo articuloVentaActual;
     
     private Float subTotalVenta;
     private Float descuentoEfectivo;
     private Float descuentoPorcentaje;
     private Float totalVenta;
+    private Float gananciaVenta;
+    
+    public Usuario usuarioActual;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -110,7 +116,7 @@ public class NuevaVentaController implements Initializable {
         //tcVentaDescuentoArticuloPorcentaje.setCellValueFactory(new PropertyValueFactory<Articulo, String>("descuentoArticuloPorcentaje"));
         
         subTotalVenta = 0f;
-        totalVenta = 0f;        
+        totalVenta = 0f;
         
         Platform.runLater(new Runnable() {
             @Override
@@ -128,6 +134,7 @@ public class NuevaVentaController implements Initializable {
             if (1 == articulos.size()) {
                 articuloActual = articulos.get(0);
                 agregarArticuloVenta(articuloActual);
+                tfBusquedaCodigo.setText("");
             }
         }
     }
@@ -146,14 +153,19 @@ public class NuevaVentaController implements Initializable {
                 if(event.getClickCount() == 2){
                     TableView v = (TableView) event.getSource();
                     Articulo c = new Articulo((Articulo) v.getSelectionModel().getSelectedItem());
-                    articuloActual = c;
-                    agregarArticuloVenta(c);
+                    articuloActual = Articulo.obtenerArticuloId(c.getIdArticulo());
+                    agregarArticuloVenta(articuloActual);
                 }
             } else {
             }
         } catch (Exception e) {
             
         }
+    }
+    
+    public void setUsuarioActual(Usuario u) {
+        usuarioActual = u;
+        tfVendedor.setText(usuarioActual.getUsuario());
     }
     
     public void tvVenta_Click(MouseEvent event) {
@@ -215,8 +227,31 @@ public class NuevaVentaController implements Initializable {
             tvVenta.getColumns().get(0).setVisible(false);
             tvVenta.getColumns().get(0).setVisible(true);
             calcularTotalVenta();
+            if ("GRAMOS".equals(a.getUnidad())) {
+                mostrarVentanaCantidad();
+            }
         } catch (Exception exc) {
             
+        }
+    }
+    
+    private void mostrarVentanaCantidad() {
+        try {
+            articuloVentaActual = articuloActual;
+
+            Stage stage = new Stage();        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogNuevaCantidadVenta.fxml"));
+            Parent root = (Parent)loader.load();
+            DialogNuevaCantidadVentaController controller = loader.<DialogNuevaCantidadVentaController>getController();
+            controller.setParent(this);
+            controller.setCantidad(articuloVentaActual.getCantidadVenta(), articuloVentaActual.getDescuentoArticuloEfectivo(), articuloVentaActual.getDescuentoArticuloPorcentaje(), articuloVentaActual.getTotalVenta(), 0);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch(Exception exc) {
+            Dialog d = new Dialog();
+            d.mensaje = exc.getMessage();
+            d.mostrarMensaje();
         }
     }
     
@@ -246,9 +281,16 @@ public class NuevaVentaController implements Initializable {
     
     public void calcularTotalVenta() {
         subTotalVenta = 0f;
+        Float piezas = 0f;
         for (int i = 0; i < detalleVenta.size(); i++) {
             subTotalVenta = subTotalVenta + detalleVenta.get(i).getTotalVenta();
+            if ("GRAMOS".equals(detalleVenta.get(i).getUnidad())) {
+                piezas++;
+            } else {
+                piezas = piezas + detalleVenta.get(i).getCantidadVenta();
+            }
         }
+        lblPiezas.setText(String.valueOf(piezas));
         lblSubTotalVenta.setText("$ " + String.valueOf(subTotalVenta));
         descuentoPorcentaje = Float.parseFloat(tfDescuentoPorcentaje.getText());
         descuentoEfectivo = Float.parseFloat(tfDescuentoEfectivo.getText());
@@ -309,8 +351,9 @@ public class NuevaVentaController implements Initializable {
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Calendar cal = Calendar.getInstance();            
-            String fecha = dateFormat.format(cal.getTime());            
-            Venta v = Venta.guardarVenta(fecha, subTotalVenta, totalVenta, descuentoPorcentaje, descuentoEfectivo, "ACTIVA", tipo, cambio, detalleVenta, tfVendedor.getText());
+            String fecha = dateFormat.format(cal.getTime());
+            obtenerGanancia();
+            Venta v = Venta.guardarVenta(fecha, subTotalVenta, totalVenta, descuentoPorcentaje, descuentoEfectivo, "ACTIVA", tipo, cambio, detalleVenta, tfVendedor.getText(), gananciaVenta);
             Reporte r = new Reporte();
             r.setVentaActual(v);
             if (cbImprimir.selectedProperty().getValue()) {
@@ -318,10 +361,27 @@ public class NuevaVentaController implements Initializable {
             } else {
                 r.crearTicket();
             }
+            /*
             Stage stage = (Stage) tfBusquedaCodigo.getScene().getWindow();
             stage.close();
+            */
+            limpiarCampos();
         } catch (Exception exc) {
             
+        }
+    }
+    
+    public void obtenerGanancia() {
+        gananciaVenta = 0f;
+        try {
+            for (int i = 0; i < detalleVenta.size(); i++) {
+                detalleVenta.get(i).setGananciaEnVenta(detalleVenta.get(i).getCantidadVenta() * detalleVenta.get(i).getCantidadGanancia());
+                gananciaVenta = gananciaVenta + detalleVenta.get(i).getGananciaEnVenta();
+            }
+        } catch (Exception exc) {
+            Dialog d = new Dialog();
+            d.mensaje = exc.getMessage();
+            d.mostrarMensaje();
         }
     }
     
@@ -361,6 +421,34 @@ public class NuevaVentaController implements Initializable {
             stage.close();
         } catch (Exception exc) {
             
+        }
+    }
+    
+    public void limpiarCampos() {
+        tfBusquedaCodigo.setText("");
+        tfBusquedaNombre.setText("");
+        articulos.clear();
+        tvArticulos.getItems().clear();
+        detalleVenta.clear();
+        tvVenta.getItems().clear();
+        lblSubTotalVenta.setText("$");
+        tfDescuentoEfectivo.setText("0");
+        tfDescuentoPorcentaje.setText("0");
+        lblTotalVenta.setText("$ 0");
+    }
+    
+    public void tvVenta_KeyPressed(KeyEvent event) {
+        if (articuloVentaActual != null) {
+            detalleVenta.remove(articuloVentaActual);
+            tvVenta.getColumns().get(0).setVisible(false);
+            tvVenta.getColumns().get(0).setVisible(true);
+            calcularTotalVenta();
+        }
+    }
+    
+    public void window_KeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.F12) {
+            guardarVentaEfectivo();
         }
     }
 }

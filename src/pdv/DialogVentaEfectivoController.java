@@ -89,4 +89,15 @@ public class DialogVentaEfectivoController implements Initializable {
             stage.close();
         }
     }
+    
+    public void cerrar() {
+        Stage stage = (Stage) tfEfectivo.getScene().getWindow();
+        stage.close();
+    }
+    
+    public void window_KeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            cerrar();
+        }
+    }
 }

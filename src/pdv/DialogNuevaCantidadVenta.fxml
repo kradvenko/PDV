@@ -8,12 +8,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="80.0" prefWidth="378.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.DialogNuevaCantidadVentaController">
   <children>
-    <Label layoutX="25.0" layoutY="6.0" text="Cantidad">
+    <Label fx:id="lblTipo" layoutX="25.0" layoutY="6.0" text="Cantidad">
       <font>
         <Font name="System Bold" size="12.0" fx:id="x1" />
       </font>
     </Label>
-    <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="10.0" layoutY="29.0" onKeyPressed="#tfCantidad_KeyPressed" prefWidth="80.0" />
+    <TextField fx:id="tfCantidad" alignment="CENTER" layoutX="10.0" layoutY="29.0" onKeyReleased="#tfCantidad_KeyPressed" prefWidth="80.0" />
       <Label layoutX="117.0" layoutY="5.0" text="Importe">
          <font>
             <Font name="System Bold" size="12.0" fx:id="x11" />

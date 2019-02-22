@@ -51,6 +51,13 @@
             <TableColumn fx:id="tcCantidadCompra" prefWidth="61.0" text="Cantidad" />
             <TableColumn fx:id="tcCostoCompra" prefWidth="75.0" text="Costo" />
          </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#eliminarArticuloCompra" text="Eliminar" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
       <Label layoutX="361.0" layoutY="94.0" text="Lista de compra">
          <font>

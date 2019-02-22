@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pdv;
 
 import Data.Abono;
@@ -20,10 +19,7 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -34,19 +30,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Kradvenko
+ * @author Carlos Contreras
  */
-public class CorteController implements Initializable {
+public class CorteGanaciasController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    
     @FXML private TableView<Venta> tvVentas;
     @FXML private TableColumn<Venta, String> tcVentaNumero;
     @FXML private TableColumn<Venta, String> tcVentaFecha;
@@ -57,6 +48,7 @@ public class CorteController implements Initializable {
     @FXML private TableColumn<Venta, String> tcVentaTotal;
     @FXML private TableColumn<Venta, String> tcEstado;
     @FXML private TableColumn<Venta, String> tcVendedor;
+    @FXML private TableColumn<Venta, String> tcGanancia;
     
     @FXML private TableView<Articulo> tvVentaDetalle;
     @FXML private TableColumn<Articulo, String> tcDetalleNombre;
@@ -64,6 +56,7 @@ public class CorteController implements Initializable {
     @FXML private TableColumn<Articulo, String> tcDetallePrecio;
     @FXML private TableColumn<Articulo, String> tcDetalleCantidad;
     @FXML private TableColumn<Articulo, String> tcDetalleImporte;
+    @FXML private TableColumn<Articulo, String> tcDetalleGanancia;
     
     @FXML private TableView<Abono> tvAbonos;
     @FXML private TableColumn<Abono, String> tcAbonoFecha;
@@ -96,6 +89,7 @@ public class CorteController implements Initializable {
         tcDetallePrecio.setCellValueFactory(new PropertyValueFactory<Articulo, String>("precio"));
         tcDetalleCantidad.setCellValueFactory(new PropertyValueFactory<Articulo, String>("cantidadVenta"));
         tcDetalleImporte.setCellValueFactory(new PropertyValueFactory<Articulo, String>("totalVenta"));
+        tcDetalleGanancia.setCellValueFactory(new PropertyValueFactory<Articulo, String>("gananciaEnVenta"));
         
         tcVentaNumero.setCellValueFactory(new PropertyValueFactory<Venta, String>("idVenta"));
         tcVentaFecha.setCellValueFactory(new PropertyValueFactory<Venta, String>("fecha"));
@@ -106,6 +100,7 @@ public class CorteController implements Initializable {
         tcVentaTotal.setCellValueFactory(new PropertyValueFactory<Venta, String>("totalVenta"));
         tcEstado.setCellValueFactory(new PropertyValueFactory<Venta, String>("estado"));
         tcVendedor.setCellValueFactory(new PropertyValueFactory<Venta, String>("vendedor"));
+        tcGanancia.setCellValueFactory(new PropertyValueFactory<Venta, String>("ganancia"));
         
         tcAbonoFecha.setCellValueFactory(new PropertyValueFactory<Abono, String>("fecha"));
         tcAbonoAbono.setCellValueFactory(new PropertyValueFactory<Abono, String>("abono"));
@@ -265,4 +260,6 @@ public class CorteController implements Initializable {
         cbTurnos.setItems(turnos);
         cbTurnos.getSelectionModel().selectFirst();
     }
+    
+    
 }

@@ -30,6 +30,9 @@ public class Articulo {
     private String unidad;
     private Float costo;
     private int cantidadEnlazado;
+    private Float porcentajeGanancia;
+    private Float cantidadGanancia;
+    private Float gananciaEnVenta;
     //Variables para la venta
     private Float cantidadVenta;
     private Float totalVenta;
@@ -40,6 +43,9 @@ public class Articulo {
     private int cantidadEntrega;
     private String fechaEntrega;
     private String folio;
+    //Variables para la compra
+    private Float costoCompra;
+    private Float cantidadCompra;
     
     public Articulo() {
         
@@ -152,6 +158,30 @@ public class Articulo {
         return this.cantidadVenta;
     }
     
+    public void setPorcentajeGanancia(Float porcentajeGanancia) {
+        this.porcentajeGanancia = porcentajeGanancia;
+    }
+    
+    public Float getPorcentajeGanancia() {
+        return this.porcentajeGanancia * 100;
+    }
+    
+    public void setCantidadGanancia(Float cantidadGanancia) {
+        this.cantidadGanancia = cantidadGanancia;
+    }
+    
+    public Float getCantidadGanancia() {
+        return this.cantidadGanancia;
+    }
+    
+    public void setGananciaEnVenta(Float ganancia) {
+        this.gananciaEnVenta = ganancia;
+    }
+    
+    public Float getGananciaEnVenta() {
+        return this.gananciaEnVenta;
+    }
+    
     public void setTotalVenta(Float totalVenta) {
         this.totalVenta = totalVenta;
     }
@@ -208,6 +238,22 @@ public class Articulo {
         return this.folio;
     }
     
+    public void setCostoCompra(Float costoCompra) {
+        this.costoCompra = costoCompra;
+    }
+    
+    public Float getCostoCompra() {
+        return this.costoCompra;
+    }
+    
+    public void setCantidadCompra(Float cantidadCompra) {
+        this.cantidadCompra = cantidadCompra;
+    }
+    
+    public Float getCantidadCompra() {
+        return this.cantidadCompra;
+    }
+    
     public static ObservableList<Articulo> obtenerArticulosCategoria(int idCategoria) {
         ObservableList<Articulo> articulos = FXCollections.observableArrayList();
         try {
@@ -228,6 +274,8 @@ public class Articulo {
                     a.setCosto(res.getFloat("costo"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                     articulos.add(a);
                 }
             }
@@ -257,6 +305,8 @@ public class Articulo {
                     a.setCosto(res.getFloat("costo"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                 }
             }
             con.closeCon();
@@ -286,6 +336,8 @@ public class Articulo {
                     a.setCosto(res.getFloat("costo"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                     articulos.add(a);
                 }
             }
@@ -296,17 +348,17 @@ public class Articulo {
         return articulos;
     }
     
-    public static void nuevoArticulo(String nombre, String codigo, int existencia, int idCategoria, Float precio, String folio, String unidad, Float costo, int idArticuloEnlazado, int cantidadEnlazado) {
+    public static void nuevoArticulo(String nombre, String codigo, int existencia, int idCategoria, Float precio, String folio, String unidad, Float costo, int idArticuloEnlazado, int cantidadEnlazado, Float porcentajeGanancia, Float cantidadGanancia) {
         try {
             Conexion con = new Conexion();
-            String query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado) VALUES ('" + nombre + "', '" + codigo + "', " + idCategoria + ", " + existencia + ", " + precio + ", '" + unidad + "', " + costo + ", " + idArticuloEnlazado + ", " + cantidadEnlazado + ")";
+            String query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado, porcentaje_ganancia, cantidad_ganancia) VALUES ('" + nombre + "', '" + codigo + "', " + idCategoria + ", " + existencia + ", " + precio + ", '" + unidad + "', " + costo + ", " + idArticuloEnlazado + ", " + cantidadEnlazado + ", " + porcentajeGanancia + ", " + cantidadGanancia + ")";
             
             int id_articulo = con.executeQueryLastID(query);
             insertarRegistroEntrega(id_articulo, existencia, folio);
             
             if ("CIGARROS".equals(Categoria.obtenerCategoria(idCategoria).getNombre())) {
-                query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado) "
-                        + "VALUES ('" + nombre + " S', '" + codigo + "', " + Categoria.obtenerCategoria("CIGARROS SUELTOS").getIdCategoria() + ", 0, 0, '" + unidad + "', 0, 0, 0)";
+                query = "INSERT INTO articulos (nombre, codigo, id_categoria, existencia, precio, unidad, costo, id_articulo_enlazado, cantidad_enlazado, porcentaje_ganancia, cantidad_ganancia) "
+                        + "VALUES ('" + nombre + " S', '" + codigo + "', " + Categoria.obtenerCategoria("CIGARROS SUELTOS").getIdCategoria() + ", 0, 0, '" + unidad + "', 0, 0, 0, 0, 0)";
                 int id_enlazado = con.executeQueryLastID(query);
                 query = "UPDATE articulos SET id_articulo_enlazado = " + id_enlazado + " WHERE id_articulo = " + id_articulo;
                 con.executeQueryString(query);
@@ -317,16 +369,37 @@ public class Articulo {
         }
     }
     
-    public static void actualizarArticulo(int idArticulo, String nombre, String codigo, int existencia, int idCategoria, Float precio, int diferencia, String folio, String unidad, Float costo, int idArticuloEnlazado, int cantidadEnlazado) {
+    public static Float obtenerExistenciaArticulo(int idArticulo) {
+        Float existencia = 0f;
+        
+        try {
+            Conexion con = new Conexion();
+            String query = "SELECT existencia FROM articulos WHERE id_articulo = " + idArticulo;
+            ResultSet res = con.executeQueryResultSet(query);
+            if (res != null) {
+                while (res.next()) {
+                    existencia = res.getFloat("existencia");
+                }
+            }
+            con.closeCon();
+        } catch (Exception exc) {
+            
+        }
+        
+        return existencia;
+    }
+    
+    public static void actualizarArticulo(int idArticulo, String nombre, String codigo, int existencia, int idCategoria, Float precio, int diferencia, String folio, String unidad, Float costo, int idArticuloEnlazado, int cantidadEnlazado, Float porcentajeGanancia, Float cantidadGanancia) {
         try {
             Conexion con = new Conexion();
             String query = "UPDATE articulos SET nombre = '" + nombre + "', codigo = '" + codigo + "', existencia = " + existencia + ", id_categoria = " + idCategoria + 
                             ", precio = " + precio + ", unidad = '" + unidad + "', costo = " + costo + 
                             ", id_articulo_enlazado = " + idArticuloEnlazado + ", cantidad_enlazado = " + cantidadEnlazado +
+                            ", porcentaje_ganancia = " + porcentajeGanancia + ", cantidad_ganancia = " + cantidadGanancia +
                             " WHERE id_articulo = " + idArticulo;
             con.executeQueryString(query);
             con.closeCon();
-            insertarRegistroEntrega(idArticulo, diferencia, folio);
+            //insertarRegistroEntrega(idArticulo, diferencia, folio);
         } catch (Exception exc) {
             
         }
@@ -349,7 +422,7 @@ public class Articulo {
             String query = "UPDATE articulos SET existencia = existencia + " + cantidad + " WHERE id_articulo = " + idArticulo;
             con.executeQueryString(query);
             con.closeCon();
-            insertarRegistroEntrega(idArticulo, cantidad, folio);
+            //insertarRegistroEntrega(idArticulo, cantidad, folio);
         } catch (Exception exc) {
             
         }
@@ -372,8 +445,11 @@ public class Articulo {
                     a.setPrecio(res.getFloat("precio"));
                     a.setCategoria(res.getString("categoria"));  
                     a.setUnidad(res.getString("unidad"));
+                    a.setCosto(res.getFloat("costo"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                     articulos.add(a);
                 }
             }
@@ -403,6 +479,8 @@ public class Articulo {
                     a.setUnidad(res.getString("unidad"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                     articulos.add(a);
                 }
             }
@@ -466,6 +544,8 @@ public class Articulo {
                     a.setFolio(res.getString("folio"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                     articulos.add(a);
                 }
             }
@@ -495,6 +575,8 @@ public class Articulo {
                     a.setFolio(res.getString("folio"));
                     a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
                     a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
                     articulos.add(a);
                 }
             }
@@ -518,5 +600,41 @@ public class Articulo {
         } catch (Exception exc) {
             
         }
+    }
+    
+    public static ObservableList<Articulo> obtenerArticulosLista() {
+        ObservableList<Articulo> articulos = FXCollections.observableArrayList();
+        try {
+            Conexion con = new Conexion();
+            String query = "SELECT articulos.*, categorias.nombre AS categoria "
+                    + "FROM articulos "
+                    + "INNER JOIN categorias "
+                    + "ON categorias.id_categoria = articulos.id_categoria "
+                    + "ORDER BY categorias.id_categoria, articulos.id_articulo";
+            ResultSet res = con.executeQueryResultSet(query);
+            if (res != null) {
+                while (res.next()) {
+                    Articulo a = new Articulo();
+                    a.setCodigo(res.getString("codigo"));
+                    a.setExistencia(res.getInt("existencia"));
+                    a.setIdArticulo(res.getInt("id_articulo"));
+                    a.setIdCategoria(res.getInt("id_categoria"));
+                    a.setNombre(res.getString("nombre"));
+                    a.setPrecio(res.getFloat("precio"));
+                    a.setCategoria(res.getString("categoria"));
+                    a.setUnidad(res.getString("unidad"));
+                    a.setCosto(res.getFloat("costo"));
+                    a.setIdArticuloEnlazado(res.getInt("id_articulo_enlazado"));
+                    a.setCantidadEnlazado(res.getInt("cantidad_enlazado"));
+                    a.setPorcentajeGanancia(res.getFloat("porcentaje_ganancia"));
+                    a.setCantidadGanancia(res.getFloat("cantidad_ganancia"));
+                    articulos.add(a);
+                }
+            }
+            con.closeCon();
+        } catch (Exception exc) {
+            
+        }
+        return articulos;
     }
 }

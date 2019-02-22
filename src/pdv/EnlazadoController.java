@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
@@ -46,6 +47,8 @@ public class EnlazadoController implements Initializable {
     @FXML Button btnCerrar;
     
     @FXML TextField tfEquivalente;
+    
+    @FXML Label lblEnlazadoActual;
     
     ObservableList<Categoria> categorias = FXCollections.observableArrayList();
     ObservableList<Articulo> articulos = FXCollections.observableArrayList();
@@ -86,6 +89,8 @@ public class EnlazadoController implements Initializable {
             tfEquivalente.setText(String.valueOf(cantidad));
             cargarArticulos();
             tvArticulos.getSelectionModel().select(a);
+            lblEnlazadoActual.setText("Artículo enlazado actual: " + a.getNombre());
+            articuloActual = a;
         } else {
             cargarArticulos();
         }
@@ -124,6 +129,7 @@ public class EnlazadoController implements Initializable {
                     TableView v = (TableView) event.getSource();
                     Articulo c = (Articulo) v.getSelectionModel().getSelectedItem();
                     articuloActual = c;
+                    lblEnlazadoActual.setText("Artículo enlazado actual: " + articuloActual.getNombre());
                 }
             } else {
             }

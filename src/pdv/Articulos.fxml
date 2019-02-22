@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="873.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.ArticulosController">
+<AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="913.0" styleClass="apMain_notas" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.ArticulosController">
   <children>
       <TextField fx:id="tfBusquedaCodigo" layoutX="7.0" layoutY="46.0" onKeyPressed="#tfBusquedaCodigo_KeyPressed" prefWidth="210.0" />
       <TextField id="tcBusquedaNombre" fx:id="tfBusquedaNombre" layoutX="274.0" layoutY="45.0" onKeyPressed="#tfBusquedaNombre_KeyPressed" prefWidth="257.0" />
@@ -29,38 +29,53 @@
         <TableColumn fx:id="tcPrecio" prefWidth="76.0" text="Precio" />
       </columns>
     </TableView>
-    <Pane fx:id="pDatosArticulo" layoutX="587.0" layoutY="6.0" prefHeight="421.0" prefWidth="276.0" style="-fx-border-color: #000000;">
+    <Pane fx:id="pDatosArticulo" layoutX="587.0" layoutY="6.0" prefHeight="421.0" prefWidth="314.0" style="-fx-border-color: #000000;">
       <children>
-        <Label layoutX="27.0" layoutY="14.0" text="Nombre">
+        <Label layoutX="27.0" layoutY="14.0" text="Código">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x13" />
+               </font></Label>
+        <TextField fx:id="tfCodigo" disable="true" layoutX="27.0" layoutY="39.0" prefHeight="25.0" prefWidth="271.0" />
+        <Label layoutX="27.0" layoutY="67.0" text="Nombre">
           <font>
             <Font name="System Bold" size="12.0" fx:id="x1" />
           </font>
         </Label>
-        <TextField fx:id="tfNombre" disable="true" layoutX="27.0" layoutY="39.0" prefWidth="217.0" />
-        <Label font="$x1" layoutX="27.0" layoutY="71.0" text="Código" />
-        <TextField fx:id="tfCodigo" disable="true" layoutX="27.0" layoutY="96.0" prefWidth="217.0" />
-        <Label font="$x1" layoutX="27.0" layoutY="130.0" text="Existencia" />
-        <TextField fx:id="tfExistencia" disable="true" layoutX="27.0" layoutY="155.0" prefWidth="56.0" />
-        <Label font="$x1" layoutX="95.0" layoutY="130.0" text="Precio" />
-        <TextField fx:id="tfPrecio" disable="true" layoutX="95.0" layoutY="155.0" prefWidth="56.0" />
-            <Label layoutX="163.0" layoutY="132.0" text="Costo">
+        <TextField fx:id="tfNombre" disable="true" layoutX="27.0" layoutY="92.0" prefHeight="25.0" prefWidth="271.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="122.0" text="Existencia" />
+        <TextField fx:id="tfExistencia" disable="true" layoutX="27.0" layoutY="147.0" prefWidth="56.0" />
+        <Label font="$x1" layoutX="95.0" layoutY="122.0" text="Precio venta" />
+        <TextField fx:id="tfPrecio" disable="true" layoutX="95.0" layoutY="147.0" prefHeight="25.0" prefWidth="68.0" />
+            <Label layoutX="183.0" layoutY="123.0" text="Costo">
                <font>
                   <Font name="System Bold" size="12.0" fx:id="x11" />
                </font>
             </Label>
-            <TextField fx:id="tfCosto" disable="true" layoutX="163.0" layoutY="155.0" prefWidth="56.0" />
-        <Label font="$x1" layoutX="30.0" layoutY="190.0" text="Unidad" />
-            <ComboBox fx:id="cbUnidad" layoutX="27.0" layoutY="215.0" prefHeight="25.0" prefWidth="217.0" />
-        <Label font="$x1" layoutX="27.0" layoutY="240.0" text="Categoría" />
-        <ComboBox fx:id="cbCategoria" layoutX="27.0" layoutY="267.0" prefHeight="21.0" prefWidth="217.0" />            
-        <Button fx:id="btNuevo" layoutX="86.0" layoutY="371.0" mnemonicParsing="false" onAction="#nuevoArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Nuevo" />
-        <Button fx:id="btActualizar" layoutX="170.0" layoutY="371.0" mnemonicParsing="false" onAction="#actualizarArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Actualizar" />
-            <Label layoutX="27.0" layoutY="304.0" text="Artículo enlazado">
+            <TextField fx:id="tfCosto" disable="true" layoutX="183.0" layoutY="146.0" prefHeight="25.0" prefWidth="74.0" />
+        <Label font="$x1" layoutX="30.0" layoutY="225.0" text="Unidad" />
+            <ComboBox fx:id="cbUnidad" layoutX="27.0" layoutY="248.0" prefHeight="25.0" prefWidth="217.0" />
+        <Label font="$x1" layoutX="27.0" layoutY="273.0" text="Categoría" />
+        <ComboBox fx:id="cbCategoria" layoutX="27.0" layoutY="300.0" prefHeight="21.0" prefWidth="217.0" />            
+        <Button fx:id="btNuevo" layoutX="148.0" layoutY="379.0" mnemonicParsing="false" onAction="#nuevoArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Nuevo" />
+        <Button fx:id="btActualizar" layoutX="232.0" layoutY="379.0" mnemonicParsing="false" onAction="#actualizarArticulo" prefHeight="34.9609375" prefWidth="74.0" text="Actualizar" />
+            <Label layoutX="27.0" layoutY="325.0" text="Artículo enlazado">
                <font>
                   <Font name="System Bold" size="12.0" fx:id="x12" />
                </font>
             </Label>
-            <Button fx:id="btEnlazado" disable="true" layoutX="29.0" layoutY="326.0" mnemonicParsing="false" onAction="#mostrarEnlazado" prefHeight="25.0" prefWidth="217.0" text="-" />        
+            <Button fx:id="btEnlazado" disable="true" layoutX="29.0" layoutY="347.0" mnemonicParsing="false" onAction="#mostrarEnlazado" prefHeight="25.0" prefWidth="217.0" text="-" />
+            <Label layoutX="30.0" layoutY="172.0" text="Porcentaje ganancia">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x14" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPorcentajeGanancia" disable="true" layoutX="30.0" layoutY="197.0" onKeyReleased="#calcularGananciaPorcentaje" prefHeight="25.0" prefWidth="115.0" />
+            <Label layoutX="184.0" layoutY="172.0" text="Cantidad ganancia">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x141" />
+               </font>
+            </Label>
+            <TextField fx:id="tfCantidadGanancia" disable="true" layoutX="184.0" layoutY="197.0" onKeyReleased="#calcularGananciaCantidad" prefHeight="25.0" prefWidth="115.0" />        
       </children>
     </Pane>
     <Pane layoutX="587.0" layoutY="432.0" prefHeight="156.0" prefWidth="137.0" style="-fx-border-color: #000000;">

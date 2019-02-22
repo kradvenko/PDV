@@ -8,10 +8,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" stylesheets="@../Styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="pdv.CorteComprasController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" styleClass="apMain_notas" stylesheets="@../Styles/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.CorteComprasController">
    <children>
       <Label layoutX="14.0" layoutY="16.0" text="Turno">
          <font>
@@ -26,8 +26,8 @@
       </Label>
       <TextField id="tfFEcha" fx:id="tfFechaInicio" layoutX="302.0" layoutY="13.0" onKeyPressed="#tfFechaInicio_KeyPressed" prefWidth="132.0" promptText="dd/mm/aaaa" />
       <ComboBox fx:id="cbProveedores" layoutX="466.0" layoutY="13.0" prefWidth="150.0" />
-      <Button layoutX="634.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Proveedor" />
-      <TableView fx:id="tvCompras" layoutX="14.0" layoutY="50.0" prefHeight="194.0" prefWidth="775.0">
+      <Button layoutX="634.0" layoutY="13.0" mnemonicParsing="false" onAction="#comprasProveedor" prefHeight="25.0" prefWidth="78.0" text="Proveedor" />
+      <TableView fx:id="tvCompras" layoutX="14.0" layoutY="50.0" onMouseClicked="#tvCompras_Click" prefHeight="194.0" prefWidth="775.0">
         <columns>
           <TableColumn fx:id="tcNumero" prefWidth="58.0" text="Número" />
             <TableColumn fx:id="tcComprador" prefWidth="111.0" text="Comprador" />
@@ -41,10 +41,49 @@
       </TableView>
       <TableView fx:id="tvDetalleCompra" layoutX="14.0" layoutY="256.0" prefHeight="233.0" prefWidth="428.0">
         <columns>
-          <TableColumn fx:id="tcNombre" prefWidth="289.0" text="Artículo" />
-          <TableColumn fx:id="tcCantidad" minWidth="0.0" prefWidth="128.0" text="Cantidad" />
+          <TableColumn fx:id="tcNombre" prefWidth="203.0" text="Artículo" />
+          <TableColumn fx:id="tcCantidad" minWidth="0.0" prefWidth="102.0" text="Cantidad" />
+            <TableColumn fx:id="tcCosto" prefWidth="99.0" text="Costo" />
         </columns>
       </TableView>
-      <Pane layoutX="452.0" layoutY="256.0" prefHeight="233.0" prefWidth="336.0" style="-fx-border-color: #000;" />
+      <Pane layoutX="452.0" layoutY="256.0" prefHeight="233.0" prefWidth="336.0" style="-fx-border-color: #000;">
+         <children>
+            <Label layoutX="14.0" layoutY="172.0" text="Total compras">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x12" />
+               </font>
+            </Label>
+            <Label id="lblVentaEfectivo" fx:id="lblCompraTotal" layoutX="27.0" layoutY="189.0" text="\$" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="20.0" fx:id="x2" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="22.0" text="Total compra con Caja de Compras">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x13" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="86.0" text="Total compras con Caja de Ventas">
+               <font>
+                  <Font name="System Bold" size="12.0" fx:id="x13" />
+               </font>
+            </Label>
+            <Label fx:id="lblCajaCompras" layoutX="24.0" layoutY="41.0" text="\$">
+               <font>
+                  <Font name="System Bold" size="20.0" fx:id="x21" />
+               </font>
+               <textFill>
+                  <Color blue="0.322" green="0.800" red="0.000" fx:id="x3" />
+               </textFill>
+            </Label>
+            <Label id="lblVentaEfectivo" fx:id="lblCajaVentas" layoutX="25.0" layoutY="107.0" text="\$">
+               <font>
+                  <Font name="System Bold" size="20.0" fx:id="x21" />
+               </font>
+               <textFill>
+                  <Color blue="1.000" green="0.400" red="0.000" fx:id="x4" />
+               </textFill>
+            </Label>
+         </children></Pane>
    </children>
 </AnchorPane>

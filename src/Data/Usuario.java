@@ -113,7 +113,18 @@ public class Usuario {
     public static void actualizarUsuario(int idUsuario, String nombre, String contrasena, String tipo) {
         try {
             Conexion con = new Conexion();
-            String query = "UPDATE usuarios SET usuario = '" + nombre + "', contrasena = '" + contrasena + "' WHERE tipo = '" + tipo + "'";
+            String query = "UPDATE usuarios SET usuario = '" + nombre + "', contrasena = '" + contrasena + "', tipo = '" + tipo + "' WHERE id_usuario = " + idUsuario + "";
+            con.executeQueryString(query);
+            con.closeCon();
+        } catch (Exception exc) {
+            
+        }
+    }
+    
+    public static void agregarUsuario(String nombre, String contrasena, String tipo) {
+        try {
+            Conexion con = new Conexion();
+            String query = "INSERT INTO usuarios (usuario, contrasena, tipo, estado) VALUES ('" + nombre + "', '" + contrasena + "', '" + tipo + "', 'ACTIVO')";
             con.executeQueryString(query);
             con.closeCon();
         } catch (Exception exc) {

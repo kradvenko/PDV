@@ -6,20 +6,24 @@
 
 package Data;
 
+import java.awt.Color;
 import java.math.BigDecimal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.sf.dynamicreports.examples.Templates;
-import net.sf.dynamicreports.report.builder.DynamicReports.*;
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports;
 import static net.sf.dynamicreports.report.builder.DynamicReports.cht;
 import static net.sf.dynamicreports.report.builder.DynamicReports.cmp;
 import static net.sf.dynamicreports.report.builder.DynamicReports.col;
+import static net.sf.dynamicreports.report.builder.DynamicReports.grp;
 import static net.sf.dynamicreports.report.builder.DynamicReports.report;
 import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
 import static net.sf.dynamicreports.report.builder.DynamicReports.type;
 import net.sf.dynamicreports.report.builder.Units;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
+import net.sf.dynamicreports.report.builder.group.GroupBuilder;
 import net.sf.dynamicreports.report.builder.style.FontBuilder;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.PageOrientation;
@@ -43,6 +47,8 @@ public class Reporte {
     private Apartado apartadoActual;
     private ObservableList<Abono> abonos = FXCollections.observableArrayList();
     
+    private ObservableList<Articulo> articulosReporte = FXCollections.observableArrayList();
+    
     public Reporte() {
         
     }
@@ -61,6 +67,10 @@ public class Reporte {
     
     public void setAbonos(ObservableList<Abono> abonos) {
         this.abonos = abonos;
+    }
+    
+    public void setArticulosReporte(ObservableList<Articulo> articulos) {
+        this.articulosReporte = articulos;
     }
     
     public void crearTicket() {
@@ -372,6 +382,76 @@ public class Reporte {
             String cantidad = String.valueOf(detalle.get(i).getAbono());
             String tipo = String.valueOf(detalle.get(i).getTipo());
             dataSource.add(fecha, cantidad, tipo);
+        }		
+        return dataSource;
+    }
+    
+    public void crearReporteArticulos() {
+        FontBuilder boldFont = stl.fontArialBold().setFontSize(12);
+        FontBuilder boldFontV2 = stl.fontArialBold().setFontSize(9);
+        FontBuilder regularFont = stl.fontArial().setFontSize(10);
+
+        StyleBuilder boldStyle = stl.style().setFont(boldFont);
+        StyleBuilder boldStyle2 = stl.style().setFont(boldFontV2);
+        StyleBuilder plainStyle = stl.style().setFont(regularFont);
+
+        TextColumnBuilder<String> articuloColumn = col.column("Artículo", "articulo", type.stringType()).setStyle(plainStyle);
+        TextColumnBuilder<String> cantidadColumn = col.column("Cantidad", "cantidad", type.stringType()).setStyle(plainStyle);
+        TextColumnBuilder<String> precioColumn = col.column("Precio", "precio", type.stringType()).setStyle(plainStyle);
+        TextColumnBuilder<String> categoriaColumn = col.column("Categoria", "categoria", type.stringType()).setStyle(plainStyle);
+        TextColumnBuilder<String> costoColumn = col.column("Costo", "costo", type.stringType()).setStyle(plainStyle);
+
+        articuloColumn.setTitleStyle(plainStyle);
+        cantidadColumn.setTitleStyle(plainStyle);
+        precioColumn.setTitleStyle(plainStyle);
+        costoColumn.setTitleStyle(plainStyle);
+
+        Tienda t = Tienda.obtenerDatosTienda();
+        
+        StyleBuilder gHeader = stl.style().setFont(boldFont);
+        gHeader.setBackgroundColor(Color.BLACK);
+        gHeader.setForegroundColor(Color.WHITE);
+        
+        categoriaColumn.setStyle(gHeader);
+        
+        GroupBuilder g = grp.group(categoriaColumn);
+
+        try {
+            //int height = 4 + ventaActual.getDetalle().size();
+            report()                            
+                    .columns(articuloColumn, cantidadColumn, precioColumn, costoColumn)
+                    .pageHeader(cmp.text(t.getNombre()).setStyle(boldStyle))
+                    .pageHeader(cmp.text("Reporte de artículos"))
+                    /*
+                    .pageFooter(cmp.text("Tipo pago:" + String.valueOf(ventaActual.getTipo())).setStyle(boldStyle2))
+                    .pageFooter(cmp.text("Subtotal: $ " + String.valueOf(ventaActual.getSubTotalVenta())).setStyle(boldStyle2))
+                    .pageFooter(cmp.text("Descuento($): $ " + String.valueOf(ventaActual.getDescuentoEfectivo())).setStyle(boldStyle2))
+                    .pageFooter(cmp.text("Descuento(%):  " + String.valueOf(ventaActual.getDescuentoPorcentaje())).setStyle(boldStyle2))
+                    .pageFooter(cmp.text("Cambio: $ " + String.valueOf(ventaActual.getCambio())).setStyle(boldStyle2))
+                    .pageFooter(cmp.text("Total: $ " + String.valueOf(ventaActual.getTotalVenta())).setStyle(boldStyle2))
+                    .pageFooter(cmp.text("Vendedor:  " + ventaActual.getVendedor()).setStyle(boldStyle2))
+                    */
+                    .setDataSource(createDataSourceReporteArticulos())
+                    .groupBy(g)
+                    .setHighlightDetailEvenRows(Boolean.TRUE)
+                    //.setGroupHeaderStyle(g, gHeader)
+                    //.setPageFormat(Units.cm(5.5), Units.cm(height), PageOrientation.PORTRAIT)
+                    .print(false);
+        } catch (DRException e) {
+                e.printStackTrace();
+        }
+    }
+    
+    public JRDataSource createDataSourceReporteArticulos() {
+        DRDataSource dataSource = new DRDataSource("articulo", "cantidad", "precio", "categoria", "costo");
+        ObservableList<Articulo> articulos = articulosReporte;
+        for (int i = 0; i < articulos.size(); i++) {
+            String articulo = String.valueOf(articulos.get(i).getNombre());
+            String cantidad = String.valueOf(articulos.get(i).getExistencia());
+            String precio = String.valueOf(articulos.get(i).getPrecio());
+            String categoria = String.valueOf(articulos.get(i).getCategoria());
+            String costo = "_________________________";
+            dataSource.add(articulo, cantidad, precio, categoria, costo);
         }		
         return dataSource;
     }

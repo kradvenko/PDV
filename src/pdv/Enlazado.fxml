@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="494.0" prefWidth="346.0" styleClass="apMain_notas" stylesheets="@../Styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="pdv.EnlazadoController">
+<AnchorPane id="AnchorPane" prefHeight="494.0" prefWidth="346.0" styleClass="apMain_notas" stylesheets="@../Styles/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pdv.EnlazadoController">
    <children>
       <Label layoutX="14.0" layoutY="6.0" text="Categorias">
          <font>
@@ -17,7 +17,7 @@
          </font>
       </Label>
       <ComboBox fx:id="cbCategoria" layoutX="14.0" layoutY="25.0" onAction="#cargarArticulos" prefHeight="25.0" prefWidth="240.0" />
-      <TableView fx:id="tvArticulos" layoutX="14.0" layoutY="56.0" onMouseClicked="#tvArticulos_Click" prefHeight="333.0" prefWidth="315.0">
+      <TableView fx:id="tvArticulos" layoutX="14.0" layoutY="90.0" onMouseClicked="#tvArticulos_Click" prefHeight="299.0" prefWidth="315.0">
         <columns>
           <TableColumn fx:id="tcNombre" prefWidth="302.0" text="Artículo" />
         </columns>
@@ -31,5 +31,10 @@
       <Button fx:id="btnGuardar" layoutX="18.0" layoutY="441.0" mnemonicParsing="false" onAction="#guardar" prefHeight="40.0" prefWidth="73.0" text="Guardar" />
       <Button fx:id="btnEliminar" layoutX="107.0" layoutY="441.0" mnemonicParsing="false" onAction="#eliminarEnlace" prefHeight="40.0" prefWidth="73.0" text="Eliminar" />
       <Button fx:id="btnCerrar" layoutX="202.0" layoutY="441.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="40.0" prefWidth="130.0" text="Salir" />
+      <Label fx:id="lblEnlazadoActual" layoutX="14.0" layoutY="62.0" text="Artículo enlazado actual" textFill="#234d99">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

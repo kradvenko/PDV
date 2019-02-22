@@ -25,6 +25,7 @@ public class Venta {
     private String tipo;
     private Float cambio;
     private String vendedor;
+    private Float ganancia;
     ObservableList<Articulo> detalle = FXCollections.observableArrayList();
     
     public Venta() {
@@ -119,11 +120,19 @@ public class Venta {
         return this.vendedor;
     }
     
-    public static Venta guardarVenta(String fecha, Float subTotal, Float total, Float descuentoPorcentaje, Float descuentoEfectivo, String estado, String tipo, Float cambio, ObservableList<Articulo> detalle, String vendedor) {
+    public void setGanancia(Float ganancia) {
+        this.ganancia = ganancia;
+    }
+    
+    public Float getGanancia() {
+        return this.ganancia;
+    }
+    
+    public static Venta guardarVenta(String fecha, Float subTotal, Float total, Float descuentoPorcentaje, Float descuentoEfectivo, String estado, String tipo, Float cambio, ObservableList<Articulo> detalle, String vendedor, Float gananciaVenta) {
         Venta v = new Venta();
         try {
             Conexion con = new Conexion();
-            String query = "INSERT INTO ventas (fecha, subtotal, total, descuento_porcentaje, descuento_efectivo, estado, tipo, cambio, vendedor) VALUES ('" + fecha + "', " + subTotal + ", " + total + ", " + descuentoPorcentaje + ", " + descuentoEfectivo + ", '" + estado + "', '" + tipo + "', " + cambio + ", '" + vendedor + "')";
+            String query = "INSERT INTO ventas (fecha, subtotal, total, descuento_porcentaje, descuento_efectivo, estado, tipo, cambio, vendedor, ganancia) VALUES ('" + fecha + "', " + subTotal + ", " + total + ", " + descuentoPorcentaje + ", " + descuentoEfectivo + ", '" + estado + "', '" + tipo + "', " + cambio + ", '" + vendedor + "', " + gananciaVenta + ")";
             int id_venta = con.executeQueryLastID(query);
             v.setDescuentoEfectivo(descuentoEfectivo);
             v.setDescuentoPorcentaje(descuentoPorcentaje);
@@ -138,7 +147,7 @@ public class Venta {
             v.setVendedor(vendedor);
             if (id_venta > 0) {
                 for (int i = 0; i < detalle.size(); i++) {
-                    query = "INSERT INTO venta_detalle (id_venta, id_articulo, cantidad, total) VALUES (" + id_venta + ", " + detalle.get(i).getIdArticulo() + ", " + detalle.get(i).getCantidadVenta() + ", " + detalle.get(i).getTotalVenta() + ")";
+                    query = "INSERT INTO venta_detalle (id_venta, id_articulo, cantidad, total, ganancia) VALUES (" + id_venta + ", " + detalle.get(i).getIdArticulo() + ", " + detalle.get(i).getCantidadVenta() + ", " + detalle.get(i).getTotalVenta() + ", " + detalle.get(i).getGananciaEnVenta() + ")";
                     con.executeQueryString(query);
                     Articulo.actualizarExistenciaArticulo(detalle.get(i).getIdArticulo(), detalle.get(i).getCantidadVenta());
                 }
@@ -170,6 +179,7 @@ public class Venta {
                     v.setTotalVenta(res.getFloat("total"));
                     v.setCambio(res.getFloat("cambio"));
                     v.setVendedor(res.getString("vendedor"));
+                    v.setGanancia((res.getFloat("ganancia")));
                     query = "SELECT venta_detalle.*, articulos.nombre, articulos.precio, articulos.codigo FROM venta_detalle INNER JOIN articulos ON articulos.id_articulo = venta_detalle.id_articulo WHERE id_venta = " + v.getIdVenta();
                     ResultSet detalle = con.executeQueryResultSet(query);
                     ObservableList<Articulo> detalleVenta = FXCollections.observableArrayList();
@@ -183,6 +193,7 @@ public class Venta {
                             a.setNombre(detalle.getString("nombre"));
                             a.setPrecio(detalle.getFloat("precio"));
                             a.setTotalVenta(detalle.getFloat("total"));
+                            a.setGananciaEnVenta(detalle.getFloat("ganancia"));
                             detalleVenta.add(a);
                         }
                     }
@@ -217,6 +228,7 @@ public class Venta {
                     v.setTotalVenta(res.getFloat("total"));
                     v.setCambio(res.getFloat("cambio"));
                     v.setVendedor(res.getString("vendedor"));
+                    v.setGanancia((res.getFloat("ganancia")));
                     query = "SELECT venta_detalle.*, articulos.nombre, articulos.precio, articulos.codigo FROM venta_detalle INNER JOIN articulos ON articulos.id_articulo = venta_detalle.id_articulo WHERE id_venta = " + v.getIdVenta();
                     ResultSet detalle = con.executeQueryResultSet(query);
                     ObservableList<Articulo> detalleVenta = FXCollections.observableArrayList();
@@ -230,6 +242,7 @@ public class Venta {
                             a.setNombre(detalle.getString("nombre"));
                             a.setPrecio(detalle.getFloat("precio"));
                             a.setTotalVenta(detalle.getFloat("total"));
+                            a.setGananciaEnVenta(detalle.getFloat("ganancia"));
                             detalleVenta.add(a);
                         }
                     }

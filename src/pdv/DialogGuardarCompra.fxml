@@ -22,6 +22,12 @@
          </font>
       </Label>
       <ComboBox fx:id="cbPagarCaja" layoutX="104.0" layoutY="68.0" prefHeight="25.0" prefWidth="83.0" />
+      <Label layoutX="52.0" layoutY="100.0" text="Cantidad usada de caja de ventas">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCantidadCaja" alignment="CENTER" layoutX="23.0" layoutY="124.0" prefHeight="25.0" prefWidth="240.0" text="0" />
       <Label layoutX="90.0" layoutY="155.0" text="Total de la compra">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -42,11 +48,5 @@
       <TextArea fx:id="taNotas" layoutX="24.0" layoutY="281.0" prefHeight="103.0" prefWidth="240.0" />
       <Button layoutX="23.0" layoutY="392.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="106.0" text="Guardar" />
       <Button fx:id="btnCerrar" layoutX="157.0" layoutY="392.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="106.0" text="Cancelar" />
-      <Label layoutX="52.0" layoutY="100.0" text="Cantidad usada de caja de ventas">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfCantidadCaja" alignment="CENTER" layoutX="23.0" layoutY="124.0" prefHeight="25.0" prefWidth="240.0" text="0" />
    </children>
 </AnchorPane>

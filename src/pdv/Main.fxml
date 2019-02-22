@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -16,20 +17,29 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaVenta" text="Nueva Venta" />
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaCorte" text="Corte Ventas" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaApartados" text="Apartados" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaIngresar" text="Ingresar mercancía" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarInventarioVentas" text="Ver inventario" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarConvertidor" text="Cigarros" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#mostrarCajaCompras" text="Caja para Compras" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarCompras" text="Nueva Compra" />
                   <MenuItem mnemonicParsing="false" onAction="#mostrarCorteCompras" text="Corte Compras" />
           </items>
         </Menu>
-        <Menu fx:id="miArticulos" disable="true" mnemonicParsing="false" text="Inventario">
+        <Menu fx:id="miArticulos" disable="true" mnemonicParsing="false" text="Administrador">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaArticulos" text="Articulos" />
             <MenuItem mnemonicParsing="false" onAction="#mostrarVentanaCategorias" text="Categorias" />
                   <MenuItem mnemonicParsing="false" onAction="#mostraVentanaBitacora" text="Bitacora" />
             <MenuItem mnemonicParsing="false" onAction="#mostraVentanaConfiguracion" text="Configuracion" />
+                  <MenuItem mnemonicParsing="false" onAction="#mostrarCorteGanancias" text="Corte Ganancias" />
+                  <Menu mnemonicParsing="false" text="Reportes">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#listaArticulos" text="Lista Artículos" />
+                    </items>
+                  </Menu>
           </items>
         </Menu>
       </menus>

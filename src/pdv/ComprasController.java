@@ -274,4 +274,13 @@ public class ComprasController implements Initializable {
 
         }
     }
+    
+    public void eliminarArticuloCompra() {
+        if (tvListaCompra.getSelectionModel().getSelectedItem() != null) {
+            listaCompra.remove(tvListaCompra.getSelectionModel().getSelectedItem());
+            /*tvVenta.getColumns().get(0).setVisible(false);
+            tvVenta.getColumns().get(0).setVisible(true);*/
+            tvListaCompra.refresh();
+        }
+    }
 }

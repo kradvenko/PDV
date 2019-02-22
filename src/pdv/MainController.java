@@ -4,6 +4,8 @@
  */
 package pdv;
 
+import Data.Articulo;
+import Data.Reporte;
 import Data.Tienda;
 import Data.Usuario;
 import java.net.URL;
@@ -81,6 +83,7 @@ public class MainController implements Initializable {
             Parent root = (Parent)loader.load();
             NuevaVentaController controller = loader.<NuevaVentaController>getController();            
             Scene scene = new Scene(root);
+            controller.setUsuarioActual(usuarioActual);
             stage.setScene(scene);
             stage.showAndWait();
         } catch (Exception e) {
@@ -123,7 +126,8 @@ public class MainController implements Initializable {
             Stage stage = new Stage();        
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Articulos.fxml"));
             Parent root = (Parent)loader.load();
-            ArticulosController controller = loader.<ArticulosController>getController();            
+            ArticulosController controller = loader.<ArticulosController>getController();
+            controller.usuarioActual = usuarioActual;
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.showAndWait();
@@ -249,6 +253,38 @@ public class MainController implements Initializable {
         }
     }
     
+    public void mostrarCajaCompras()
+    {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CajaCompras.fxml"));
+            Parent root = (Parent)loader.load();
+            CajaComprasController controller = loader.<CajaComprasController>getController();
+            controller.currentUser = usuarioActual;
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    public void mostrarCorteGanancias()
+    {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CorteGanacias.fxml"));
+            Parent root = (Parent)loader.load();
+            CorteGanaciasController controller = loader.<CorteGanaciasController>getController();
+            controller.setUsuario(usuarioActual);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            mostrarMensaje(e.getLocalizedMessage());
+        }
+    }
+    
     public void cerrar() {
         Stage stage = (Stage) lblLogo.getScene().getWindow();
         stage.close();
@@ -267,5 +303,12 @@ public class MainController implements Initializable {
         } catch (Exception e) {
 
         }
+    }
+    
+    public void listaArticulos() {
+        
+        Reporte r = new Reporte();
+        r.setArticulosReporte(Articulo.obtenerArticulosLista());
+        r.crearReporteArticulos();
     }
 }
